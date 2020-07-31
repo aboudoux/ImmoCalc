@@ -1,0 +1,57 @@
+﻿<div class="card">
+    <div class="card-header bg-primary border rounded shadow-sm">
+        <div class="row text-left">
+            <div class="col-auto"><i class="far fa-building"></i></div>
+            <div class="col">
+                <h5 class="text-white mb-0">Informations d&#39;achat</h5>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <Grid ColumnGap="3" RowGap="3">
+            <RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </RowDefinitions>
+            <ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="30" />
+            </ColumnDefinitions>
+            <Content>
+                <GridElement Row="1" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
+                    <label>Prix :</label>
+                </GridElement>
+                <GridElement Row="1" Column="2">
+                    <ClearableInput />
+                </GridElement>
+                <GridElement Row="1" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
+                    <label>€</label>
+                </GridElement>
+
+                <GridElement Row="2" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
+                    <label>Loyer :</label>
+                </GridElement>
+                <GridElement Row="2" Column="2">
+                    <ClearableInput />
+                </GridElement>
+                <GridElement Row="2" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
+                    <label>€</label>
+                </GridElement>
+            </Content>
+        </Grid>
+    </div>
+    <div class="card-body bg-dark border rounded border-dark"></div>
+</div>
+
+@code {
+
+}
+
+<style>
+    label {
+        margin: 0;
+    }
+</style>
