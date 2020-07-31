@@ -1,4 +1,6 @@
-﻿@using System.Text.RegularExpressions
+﻿@using System.Globalization
+@using System.Text.RegularExpressions
+@using ImmoCalc.Domains
 <div class="btn-group">
     <input id="searchinput" type="search" class="form-control" @bind-value="InputValue" @bind-value:event="oninput">
     <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
@@ -6,13 +8,16 @@
 
 @code {
 
+    [Parameter]
+    public bool ShowCents { get; set; } = false;
+
     private string InputValue
     {
         get => _inputValue;
         set
         {
-            if (Regex.IsMatch(value, "^\\d*\\,?\\d*$"))
-                _inputValue = value;
+            if (value.IsEmpty() || decimal.TryParse(value, out decimal result) )
+                _inputValue = value.FormatDecimal(ShowCents);
         }
     }
 
