@@ -9,15 +9,15 @@
 @code {
 
     [Parameter]
-    public bool ShowCents { get; set; } = false;
+    public bool ShowCents { get; set; } = true;
 
     private string InputValue
     {
         get => _inputValue;
         set
         {
-            if (value.IsEmpty() || decimal.TryParse(value, out decimal result) )
-                _inputValue = value.FormatDecimal(ShowCents);
+            if (Amount.IsValid(value))
+                _inputValue = Amount.Of(value).ToString(ShowCents ? 2 : 0);
         }
     }
 
