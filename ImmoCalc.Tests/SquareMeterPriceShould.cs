@@ -1,5 +1,5 @@
 using FluentAssertions;
-using ImmoCalc.Domains;
+using ImmoCalc.Domain;
 using Xunit;
 
 namespace ImmoCalc.Tests
@@ -10,7 +10,7 @@ namespace ImmoCalc.Tests
 		[InlineData(150000,25, 6000)]
 		public void CalculatePrice(double totalPrice, double squareMeter, double expectedPrice)
 		{
-			SquareMeterPrice.Of(Amount.Of(totalPrice), squareMeter).Value.Should().Be(expectedPrice);
+			SquareMeterPrice.Of(BuyingPrice.From(totalPrice), squareMeter).Value.Should().Be(expectedPrice);
 		}
 	}
 }

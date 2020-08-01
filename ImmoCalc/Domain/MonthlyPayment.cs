@@ -1,10 +1,10 @@
 using System;
 
-namespace ImmoCalc.Domains
+namespace ImmoCalc.Domain
 {
-	public class MonthlyPayment : Amount
+	public class MonthlyPayment : RoundedAmount
 	{
-		protected MonthlyPayment(double value) : base(Math.Round(value, MidpointRounding.ToEven))
+		protected MonthlyPayment(double value) : base(value)
 		{
 		}
 

@@ -1,4 +1,5 @@
 using FluentAssertions;
+using ImmoCalc.Domain;
 using Xunit;
 
 namespace ImmoCalc.Tests
@@ -6,11 +7,11 @@ namespace ImmoCalc.Tests
 	public class RateOfReturnShould
 	{
 		[Theory]
-		[InlineData(139000, 800, "6,42")]
-		public void BeCalculated(double buyingPrice, double monthlyRent, string expectedValue)
+		[InlineData(139000, 800, 0.0642)]
+		public void BeCalculated(double buyingPrice, double monthlyRent, double expectedValue)
 		{
-			RateOfReturn.Of(BuyingPrice.Of(buyingPrice), MonthlyRent.Of(monthlyRent)).Value
-				.Should().Be(expectedValue.ToDouble());
+			RateOfReturn.Of(BuyingPrice.From(buyingPrice), MonthlyRent.From(monthlyRent)).Value
+				.Should().Be(expectedValue);
 		}
 	}
 }

@@ -1,10 +1,10 @@
 using FluentAssertions;
-using ImmoCalc.Domains;
+using ImmoCalc.Shared;
 using Xunit;
 
 namespace ImmoCalc.Tests
 {
-	public class AmountShould
+	public class DisplayDecimalShould
 	{
 		[Theory]
 		[InlineData(null, "")]
@@ -21,7 +21,7 @@ namespace ImmoCalc.Tests
 		[InlineData("235154574,2415454", "235 154 574,2415454")]
 		public void DisplayNumberWithoutCents(string input, string expectedOutput)
 		{
-			Amount.Of(input).ToString().Should().Be(expectedOutput);
+			Display.AsDecimal(input).ToString().Should().Be(expectedOutput);
 		}
 
 		[Theory]
@@ -32,7 +32,7 @@ namespace ImmoCalc.Tests
 		[InlineData("652154,242432", 1, "652 154,2")]
 		public void DisplayNumberWithMaxDecimal(string input, int maxDecimal, string expectedOutput)
 		{
-			Amount.Of(input).ToString(maxDecimal).Should().Be(expectedOutput);
+			Display.AsDecimal(input).ToString(maxDecimal).Should().Be(expectedOutput);
 		}
 	}
 }

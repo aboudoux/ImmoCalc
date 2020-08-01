@@ -1,0 +1,24 @@
+﻿<GridElement Row="@Row" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
+        <label>@Label : </label>
+    </GridElement>
+    <GridElement Row="@Row" Column="2">
+        <ClearableInput ShowCents="@ShowCents"/>
+    </GridElement>
+    <GridElement Row="@Row" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
+        <label>@Currency</label>
+    </GridElement>
+
+@code {
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public int Row { get; set; }
+
+    [Parameter]
+    public string Currency { get; set; } = "€";
+
+    [Parameter]
+    public bool ShowCents { get; set; } = true;
+
+}

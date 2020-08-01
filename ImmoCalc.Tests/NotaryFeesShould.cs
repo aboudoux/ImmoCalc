@@ -1,5 +1,5 @@
 using FluentAssertions;
-using ImmoCalc.Domains;
+using ImmoCalc.Domain;
 using Xunit;
 
 namespace ImmoCalc.Tests
@@ -10,7 +10,7 @@ namespace ImmoCalc.Tests
 		[InlineData(150000,11250)]
 		public void BeCalculatedFromAmount(double amount, double expected)
 		{
-			NotaryFees.Of(BuyingPrice.Of(amount)).Value.Should().Be(expected);
+			NotaryFees.Of(BuyingPrice.From(amount)).Value.Should().Be(expected);
 		}
 	}
 }

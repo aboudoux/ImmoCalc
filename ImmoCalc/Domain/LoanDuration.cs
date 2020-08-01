@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace ImmoCalc.Domains
+namespace ImmoCalc.Domain
 {
 	public class LoanDuration
 	{

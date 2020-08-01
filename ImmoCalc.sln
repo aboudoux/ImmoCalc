@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImmoCalc", "ImmoCalc\ImmoCalc.csproj", "{1A732907-0B0C-4CF7-89D0-5D829BEEAAAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImmoCalc.Tests", "ImmoCalc.Tests\ImmoCalc.Tests.csproj", "{AD51C08B-90FA-4E75-AA90-FC7DD020E29A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImmoCalc.Tests", "ImmoCalc.Tests\ImmoCalc.Tests.csproj", "{AD51C08B-90FA-4E75-AA90-FC7DD020E29A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

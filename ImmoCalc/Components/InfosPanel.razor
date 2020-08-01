@@ -1,4 +1,5 @@
-﻿<div class="card">
+﻿@using System.Security.Cryptography
+<div class="card">
     <div class="card-header bg-primary border rounded shadow-sm">
         <div class="row text-left">            
             <div class="col-auto"><i class="fas fa-house-damage"></i></div>
@@ -21,57 +22,42 @@
                 <ColumnDefinition Width="30" />
             </ColumnDefinitions>
             <Content>
+                <BuyingInformation Row="1" Label="Prix total" ShowCents="@false"/>
+                <BuyingInformation Row="2" Label="Loyer mensuel" />
+                <BuyingInformation Row="3" Label="Dont charges" />
+                <BuyingInformation Row="4" Label="Surface" Currency="m²" />
+            </Content>
+        </Grid>
+    </div>
+    <div class="card-body bg-dark border rounded border-dark">
+        <Grid>
+            <ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </ColumnDefinitions>
+            <RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </RowDefinitions>
+            <Content>
                 <GridElement Row="1" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
-                    <label>Prix total :</label>
+                    <label class="text-white">Frais notaire :</label>
                 </GridElement>
                 <GridElement Row="1" Column="2">
-                    <ClearableInput ShowCents="@false" />
+                    <label class="text-white">@NotaryFees</label>
                 </GridElement>
                 <GridElement Row="1" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
-                    <label>€</label>
-                </GridElement>
-
-                <GridElement Row="2" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
-                    <label>Loyer mensuel :</label>
-                </GridElement>
-                <GridElement Row="2" Column="2">
-                    <ClearableInput/>
-                </GridElement>
-                <GridElement Row="2" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
-                    <label>€</label>
-                </GridElement>
-
-                <GridElement Row="3" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
-                    <label>Dont charges :</label>
-                </GridElement>
-                <GridElement Row="3" Column="2">
-                    <ClearableInput />
-                </GridElement>
-                <GridElement Row="3" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
-                    <label>€</label>
-                </GridElement>
-
-                <GridElement Row="4" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
-                    <label>Surface :</label>
-                </GridElement>
-                <GridElement Row="4" Column="2">
-                    <ClearableInput />
-                </GridElement>
-                <GridElement Row="4" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
-                    <label>m²</label>
+                    <label class="text-white">€</label>
                 </GridElement>
             </Content>
         </Grid>
     </div>
-    <div class="card-body bg-dark border rounded border-dark"></div>
 </div>
 
 @code {
-
+    private string NotaryFees => "12 500";
 }
-
-<style>
-    label {
-        margin: 0;
-    }
-</style>

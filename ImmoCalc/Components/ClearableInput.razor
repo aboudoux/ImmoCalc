@@ -1,7 +1,4 @@
-﻿@using System.Globalization
-@using System.Text.RegularExpressions
-@using ImmoCalc.Domains
-<div class="btn-group">
+﻿<div class="btn-group">
     <input id="searchinput" type="search" class="form-control" @bind-value="InputValue" @bind-value:event="oninput">
     <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
 </div>
@@ -16,8 +13,8 @@
         get => _inputValue;
         set
         {
-            if (Amount.IsValid(value))
-                _inputValue = Amount.Of(value).ToString(ShowCents ? 2 : 0);
+            if (Display.IsValid(value))
+                _inputValue = Display.AsDecimal(value).ToString(ShowCents ? 2 : 0);
         }
     }
 

@@ -1,8 +1,6 @@
-using ImmoCalc.Domains;
-
-namespace ImmoCalc.Tests
+namespace ImmoCalc.Domain
 {
-	public class NotaryFees : Amount
+	public class NotaryFees : ExactAmount
 	{
 		private NotaryFees(double value) : base(value)
 		{
