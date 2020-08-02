@@ -10,15 +10,22 @@
 
     private string InputValue
     {
-        get => _inputValue;
+        get => Value;
         set
         {
             if (Display.IsValid(value))
-                _inputValue = Display.AsDecimal(value).ToString(ShowCents ? 2 : 0);
+            {
+                Value = Display.AsDecimal(value).ToString(ShowCents ? 2 : 0);
+                ValueChanged.InvokeAsync(Value);
+            }
         }
     }
 
-    private string _inputValue;
+    [Parameter]
+    public string Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
 }
 
 <style>

@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="30" />
             </ColumnDefinitions>
             <Content>
-                <BuyingInformation Row="1" Label="Prix total" ShowCents="@false"/>
+                <BuyingInformation Row="1" Label="Prix total" ShowCents="@false" @bind-Value="@BuyingPrice"/>
                 <BuyingInformation Row="2" Label="Loyer mensuel" />
                 <BuyingInformation Row="3" Label="Dont charges" />
                 <BuyingInformation Row="4" Label="Surface" Currency="m²" />
@@ -60,4 +60,6 @@
 
 @code {
     private string NotaryFees => "12 500";
+
+    private string BuyingPrice { get; set; }
 }
