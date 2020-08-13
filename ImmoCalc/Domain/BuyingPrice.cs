@@ -7,5 +7,6 @@ namespace ImmoCalc.Domain
 		}
 
 		public static BuyingPrice From(double value) => new BuyingPrice(value);
+		public static BuyingPrice Empty => new BuyingPrice(0);
 	}
 }

@@ -28,12 +28,11 @@ namespace ImmoCalc {
 				(aOptions) =>
 
 					aOptions.Assemblies =
-						new Assembly[]
+						new[]
 						{
 							typeof(Program).GetTypeInfo().Assembly,
 						}
 			);
 		}
 	}
-}
 }
