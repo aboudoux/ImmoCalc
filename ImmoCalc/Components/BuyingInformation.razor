@@ -2,7 +2,7 @@
         <label>@Label : </label>
     </GridElement>
     <GridElement Row="@Row" Column="2">
-        <ClearableInput ShowCents="@ShowCents" @bind-Value="@Value"/>
+        <ClearableInput ShowCents="@ShowCents" @bind-Value="@InputValue"/>
     </GridElement>
     <GridElement Row="@Row" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
         <label>@Currency</label>
@@ -21,17 +21,19 @@
     [Parameter]
     public bool ShowCents { get; set; } = true;
 
-    private string _value;
-    [Parameter]
-    public string Value
+    private string InputValue
     {
-        get => _value;
+        get => Value;
         set
         {
-            _value = value;
-            //ValueChanged.InvokeAsync(Value);
+            Value = value;
+            ValueChanged.InvokeAsync(Value);
         }
     }
+
+    [Parameter]
+    public string Value { get; set; }
+
 
     [Parameter]
     public EventCallback<string> ValueChanged { get; set; }

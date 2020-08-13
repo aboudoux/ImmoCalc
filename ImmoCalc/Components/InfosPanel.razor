@@ -1,4 +1,7 @@
-﻿<div class="card">
+﻿@inherits BlazorState.BlazorStateComponent
+@using ImmoCalc.Stores.Infos
+
+<div class="card">
     <div class="card-header bg-primary border rounded shadow-sm">
         <div class="row text-left">            
             <div class="col-auto"><i class="fas fa-house-damage"></i></div>
@@ -58,7 +61,14 @@
 </div>
 
 @code {
-    private string NotaryFees => "12 500";
 
-    private string BuyingPrice { get; set; }
+    private InfosState MyStore => Store.GetState<InfosState>();
+
+    private string NotaryFees => MyStore.NotaryFees;
+
+    private string BuyingPrice {
+        get => MyStore.BuyingPrice;
+        set => Mediator.Send(new InfosState.ChangeBuyingPrice(value)); 
+    }
+
 }

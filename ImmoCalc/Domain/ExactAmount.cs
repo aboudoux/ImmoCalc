@@ -1,5 +1,3 @@
-using System;
-
 namespace ImmoCalc.Domain
 {
 	public abstract class ExactAmount
@@ -10,11 +8,5 @@ namespace ImmoCalc.Domain
 		}
 
 		public double Value { get; }
-	}
-
-	public abstract class RoundedAmount : ExactAmount
-	{
-		protected RoundedAmount(double value) : base(Math.Round(value, MidpointRounding.ToEven)) {
-		}
 	}
 }

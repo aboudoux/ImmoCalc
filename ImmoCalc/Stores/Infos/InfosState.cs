@@ -4,7 +4,8 @@ using ImmoCalc.Domain;
 namespace ImmoCalc.Stores.Infos {
 	public class InfosState : State<InfosState>
 	{
-		public BuyingPrice BuyingPrice { get; set; } = BuyingPrice.Empty;
+		public string BuyingPrice { get; set; }
+		public string NotaryFees { get; set; }
 
 		public override void Initialize()
 		{
@@ -12,9 +13,9 @@ namespace ImmoCalc.Stores.Infos {
 
 		public class ChangeBuyingPrice : IAction
 		{
-			public BuyingPrice BuyingPrice { get; }
+			public string BuyingPrice { get; }
 
-			public ChangeBuyingPrice(BuyingPrice buyingPrice)
+			public ChangeBuyingPrice(string buyingPrice)
 			{
 				BuyingPrice = buyingPrice;
 			}
