@@ -1,12 +1,15 @@
-﻿<GridElement Row="@Row" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
-        <label>@Label : </label>
-    </GridElement>
-    <GridElement Row="@Row" Column="2">
-        <ClearableInput ShowCents="@ShowCents" @bind-Value="@InputValue"/>
-    </GridElement>
-    <GridElement Row="@Row" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
-        <label>@Currency</label>
-    </GridElement>
+﻿@using ImmoCalc.Components.Converters
+@typeparam TValue
+
+<GridElement Row="@Row" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
+    <label>@Label : </label>
+</GridElement>
+<GridElement Row="@Row" Column="2">
+    <ClearableInput ShowCents="@ShowCents" @bind-Value="@InputValue" />
+</GridElement>
+<GridElement Row="@Row" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
+    <label>@Currency</label>
+</GridElement>
 
 @code {
     [Parameter]
@@ -23,18 +26,21 @@
 
     private string InputValue
     {
-        get => Value;
+        get => Converter.Convert(Value) as string;
         set
         {
-            Value = value;
+            Value = (TValue)Converter.ConvertBack(value);
             ValueChanged.InvokeAsync(Value);
         }
     }
 
     [Parameter]
-    public string Value { get; set; }
+    public TValue Value { get; set; }
 
 
     [Parameter]
-    public EventCallback<string> ValueChanged { get; set; }
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    [Parameter]
+    public IValueConverter Converter { get; set; }
 }

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using BlazorState;
 using ImmoCalc.Domain;
-using ImmoCalc.Shared;
 using MediatR;
 
 namespace ImmoCalc.Stores.Infos
@@ -17,12 +16,8 @@ namespace ImmoCalc.Stores.Infos
 
 		public override Task<Unit> Handle(InfosState.ChangeBuyingPrice action, CancellationToken cancellationToken)
 		{
-			State.BuyingPrice = Display.AsDecimal(action.BuyingPrice).ToString(0);
-
-			var buyingPrice = BuyingPrice.From(action.BuyingPrice);
-			var notaryFees = NotaryFees.Of(buyingPrice);
-
-			State.NotaryFees = Display.AsDecimal(notaryFees.Value.ToString()).ToString(2);
+			State.BuyingPrice = action.BuyingPrice;
+			State.NotaryFees = NotaryFees.Of(action.BuyingPrice);
 			return Unit.Task;
 		}
 	}

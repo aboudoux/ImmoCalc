@@ -1,4 +1,6 @@
 ﻿@inherits BlazorState.BlazorStateComponent
+@using ImmoCalc.Components.Converters
+@using ImmoCalc.Domain
 @using ImmoCalc.Stores.Infos
 
 <div class="card">
@@ -24,10 +26,10 @@
                 <ColumnDefinition Width="30" />
             </ColumnDefinitions>
             <Content>
-                <BuyingInformation Row="1" Label="Prix total" ShowCents="@false" @bind-Value="@BuyingPrice"/>
-                <BuyingInformation Row="2" Label="Loyer mensuel" />
+                <BuyingInformation Row="1" Label="Prix total" ShowCents="@false" @bind-Value="@BuyingPrice" Converter="@_buyingPriceValueConverter"/>
+                @*<BuyingInformation Row="2" Label="Loyer mensuel" />
                 <BuyingInformation Row="3" Label="Dont charges" />
-                <BuyingInformation Row="4" Label="Surface" Currency="m²" />
+                <BuyingInformation Row="4" Label="Surface" Currency="m²" />*@
             </Content>
         </Grid>
     </div>
@@ -50,7 +52,7 @@
                     <label class="text-white">Frais notaire :</label>
                 </GridElement>
                 <GridElement Row="1" Column="2">
-                    <label class="text-white">@NotaryFees</label>
+                    <label class="text-white">@_amountToStringConverter.Convert(NotaryFees)</label>
                 </GridElement>
                 <GridElement Row="1" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
                     <label class="text-white">€</label>
@@ -64,11 +66,13 @@
 
     private InfosState MyStore => Store.GetState<InfosState>();
 
-    private string NotaryFees => MyStore.NotaryFees;
+    private readonly AmountToStringConverter _amountToStringConverter = new AmountToStringConverter();
+    private readonly AmountConverter<BuyingPrice> _buyingPriceValueConverter = new AmountConverter<BuyingPrice>(BuyingPrice.From);
 
-    private string BuyingPrice {
+    private NotaryFees NotaryFees => MyStore.NotaryFees;
+
+    private BuyingPrice BuyingPrice {
         get => MyStore.BuyingPrice;
         set => Mediator.Send(new InfosState.ChangeBuyingPrice(value)); 
     }
-
 }
