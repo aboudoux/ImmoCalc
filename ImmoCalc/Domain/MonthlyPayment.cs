@@ -2,7 +2,7 @@ using System;
 
 namespace ImmoCalc.Domain
 {
-	public class MonthlyPayment : RoundedAmount
+	public class MonthlyPayment : RoundedAmount<MonthlyPayment>
 	{
 		protected MonthlyPayment(double value) : base(value)
 		{

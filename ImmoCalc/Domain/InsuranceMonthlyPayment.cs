@@ -1,6 +1,6 @@
 namespace ImmoCalc.Domain
 {
-	public class InsuranceMonthlyPayment :RoundedAmount
+	public class InsuranceMonthlyPayment : RoundedAmount<InsuranceMonthlyPayment>
 	{
 		private InsuranceMonthlyPayment(double value) : base(value)
 		{

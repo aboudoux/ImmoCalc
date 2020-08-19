@@ -4,7 +4,8 @@ using ImmoCalc.Shared;
 
 namespace ImmoCalc.Components.Converters
 {
-	public class AmountConverter<T> : IValueConverter where T : ExactAmount
+	public class AmountConverter<T> : IValueConverter 
+		where T : class, IAmountValue
 	{
 		private readonly Func<double, T> _factory;
 
@@ -15,15 +16,14 @@ namespace ImmoCalc.Components.Converters
 
 		public object Convert(object value)
 		{
-			T amount = value as T;
-			return amount == null || amount.Value == 0
+			return !(value is T amount) || amount.Value == 0
 				? string.Empty
 				: Display.AsDecimal(amount.Value.ToString()).ToString(2);
 		}
 
 		public object ConvertBack(object value)
 		{
-			string price = value as string;
+			var price = value as string;
 			return string.IsNullOrWhiteSpace(price)
 				? _factory(0)
 				: _factory(double.Parse(price));

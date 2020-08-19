@@ -38,5 +38,17 @@ namespace ImmoCalc.Tests
 			_state.BuyingPrice.Value.Should().Be(100000);
 			_state.NotaryFees.Value.Should().Be(7500);
 		}
+
+		[Fact]
+		public void ChangeMonthlyRent()
+		{
+			_state.BuyingPrice = BuyingPrice.From(139000);
+			SendAction(new InfosState.ChangeMonthlyRent(MonthlyRent.From(800)));
+			
+			_state.MonthlyRent.Value.Should().Be(800);
+			_state.RateOfReturn.Value.Should().Be(0.0642);
+			// todo : modifier les autres infos impacté par le loyer mensuel
+			// RateOfReturn, MonthlyGain
+		}
 	}
 }

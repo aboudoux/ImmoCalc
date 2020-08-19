@@ -1,6 +1,6 @@
 namespace ImmoCalc.Domain
 {
-	public class LoanRate : Ratio
+	public class LoanRate : Ratio<LoanRate>
 	{
 		private LoanRate(double value) : base(value)
 		{

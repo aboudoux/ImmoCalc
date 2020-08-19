@@ -6,7 +6,9 @@ using MediatR;
 
 namespace ImmoCalc.Stores.Infos
 {
-	public class InfosReducer : ActionHandler<InfosState.ChangeBuyingPrice>
+	public class InfosReducer : 
+		ActionHandler<InfosState.ChangeBuyingPrice>,
+		IRequestHandler<InfosState.ChangeMonthlyRent>
 	{
 		private InfosState State => Store.GetState<InfosState>();
 
@@ -18,6 +20,13 @@ namespace ImmoCalc.Stores.Infos
 		{
 			State.BuyingPrice = action.BuyingPrice;
 			State.NotaryFees = NotaryFees.Of(action.BuyingPrice);
+			return Unit.Task;
+		}
+
+		public Task<Unit> Handle(InfosState.ChangeMonthlyRent action, CancellationToken cancellationToken)
+		{
+			State.MonthlyRent = action.MonthlyRent;
+			State.RateOfReturn = RateOfReturn.Of(State.BuyingPrice, action.MonthlyRent);
 			return Unit.Task;
 		}
 	}

@@ -2,7 +2,7 @@ using System;
 
 namespace ImmoCalc.Domain
 {
-	public class RateOfReturn : Ratio
+	public class RateOfReturn : Ratio<RateOfReturn>
 	{
 		public RateOfReturn(double value) : base(value) {
 		}

@@ -1,6 +1,6 @@
 namespace ImmoCalc.Domain
 {
-	public class SquareMeterPrice : ExactAmount
+	public class SquareMeterPrice : ExactAmount<SquareMeterPrice>
 	{
 		private SquareMeterPrice(double value) : base(value)
 		{

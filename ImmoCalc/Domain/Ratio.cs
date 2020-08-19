@@ -1,8 +1,9 @@
+using System;
 using System.IO;
 
 namespace ImmoCalc.Domain
 {
-	public abstract class Ratio
+	public abstract class Ratio<T> where T : class
 	{
 		protected Ratio(double value) 
 		{
@@ -11,5 +12,7 @@ namespace ImmoCalc.Domain
 			Value = value / 100;
 		}
 		public double Value { get; }
+
+		public static T Empty => Activator.CreateInstance(typeof(T), 0) as T;
 	}
 }

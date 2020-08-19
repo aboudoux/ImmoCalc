@@ -8,7 +8,7 @@ namespace ImmoCalc.Components.Converters
 	{
 		public object Convert(object value)
 		{
-			ExactAmount price = value as ExactAmount;
+			var price = value as IAmountValue;
 			return price.Value == 0 
 				? string.Empty 
 				: Display.AsDecimal(price.Value.ToString()).ToString(2);
