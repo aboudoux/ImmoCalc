@@ -8,7 +8,8 @@ namespace ImmoCalc.Stores.Infos
 {
 	public class InfosReducer : 
 		ActionHandler<InfosState.ChangeBuyingPrice>,
-		IRequestHandler<InfosState.ChangeMonthlyRent>
+		IRequestHandler<InfosState.ChangeMonthlyRent>,
+		IRequestHandler<InfosState.ChangeCharges>
 	{
 		private InfosState State => Store.GetState<InfosState>();
 
@@ -26,7 +27,15 @@ namespace ImmoCalc.Stores.Infos
 		public Task<Unit> Handle(InfosState.ChangeMonthlyRent action, CancellationToken cancellationToken)
 		{
 			State.MonthlyRent = action.MonthlyRent;
-			State.RateOfReturn = RateOfReturn.Of(State.BuyingPrice, action.MonthlyRent);
+			State.RateOfReturn = RateOfReturn.Of(State.BuyingPrice, action.MonthlyRent); // todo : ajouter les charges
+			State.MonthlyGain = MonthlyGain.Of(State.MonthlyPayment, action.MonthlyRent); // todo : ajouter les charges
+			return Unit.Task;
+		}
+
+		public Task<Unit> Handle(InfosState.ChangeCharges action, CancellationToken cancellationToken)
+		{
+			State.Charges = action.Charges;
+			
 			return Unit.Task;
 		}
 	}

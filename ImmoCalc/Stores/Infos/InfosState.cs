@@ -9,6 +9,8 @@ namespace ImmoCalc.Stores.Infos {
 		public MonthlyRent MonthlyRent { get; set; }
 		public RateOfReturn RateOfReturn { get; set; }
 		public MonthlyGain MonthlyGain { get; set; }
+		public MonthlyPayment MonthlyPayment { get; set; }
+		public Charges Charges { get; set; }
 
 		public override void Initialize()
 		{
@@ -16,6 +18,8 @@ namespace ImmoCalc.Stores.Infos {
 			NotaryFees = NotaryFees.Empty;
 			MonthlyRent = MonthlyRent.Empty;
 			RateOfReturn = RateOfReturn.Empty;
+			MonthlyGain = MonthlyGain.Empty;
+			MonthlyPayment = MonthlyPayment.Empty;
 		}
 
 		public class ChangeBuyingPrice : IAction
@@ -35,6 +39,16 @@ namespace ImmoCalc.Stores.Infos {
 			public ChangeMonthlyRent(MonthlyRent monthlyRent)
 			{
 				MonthlyRent = monthlyRent;
+			}
+		}
+
+		public class ChangeCharges : IAction
+		{
+			public Charges Charges { get; }
+
+			public ChangeCharges(Charges charges)
+			{
+				Charges = charges;
 			}
 		}
 	}
