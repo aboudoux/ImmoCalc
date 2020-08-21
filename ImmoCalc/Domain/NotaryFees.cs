@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Frais de notaire
 	/// </summary>
-	public class NotaryFees : ExactAmount<NotaryFees>
+	public class NotaryFees : ExactValue<NotaryFees>
 	{
 		protected NotaryFees(double value) : base(value)
 		{

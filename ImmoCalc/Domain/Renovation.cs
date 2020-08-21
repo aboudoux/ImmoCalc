@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Travaux
 	/// </summary>
-	public class Renovation : RoundedAmount<Renovation>
+	public class Renovation : RoundedValue<Renovation>
 	{
 		private Renovation(double value) : base(value)
 		{

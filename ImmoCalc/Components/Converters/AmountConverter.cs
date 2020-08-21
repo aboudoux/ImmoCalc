@@ -5,7 +5,7 @@ using ImmoCalc.Shared;
 namespace ImmoCalc.Components.Converters
 {
 	public class AmountConverter<T> : IValueConverter 
-		where T : class, IAmountValue
+		where T : class, IValue
 	{
 		private readonly Func<double, T> _factory;
 

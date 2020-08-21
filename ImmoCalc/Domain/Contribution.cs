@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Apport
 	/// </summary>
-	public class Contribution : RoundedAmount<Contribution>
+	public class Contribution : RoundedValue<Contribution>
 	{
 		private Contribution(double value) : base(value)
 		{

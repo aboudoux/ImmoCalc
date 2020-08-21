@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Loyer
 	/// </summary>
-	public class MonthlyRent : ExactAmount<MonthlyRent>
+	public class MonthlyRent : ExactValue<MonthlyRent>
 	{
 		private MonthlyRent(double value) : base(value)
 		{

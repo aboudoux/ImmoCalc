@@ -1,6 +1,6 @@
 namespace ImmoCalc.Domain
 {
-	public interface IAmountValue
+	public interface IValue
 	{
 		double Value { get; }
 	}

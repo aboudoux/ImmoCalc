@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Cout total du bien
 	/// </summary>
-	public class PropertyTotalCost : RoundedAmount<PropertyTotalCost>
+	public class PropertyTotalCost : RoundedValue<PropertyTotalCost>
 	{
 		private PropertyTotalCost(double value) : base(value)
 		{

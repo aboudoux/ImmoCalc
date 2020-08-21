@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Montant de l'emprunt
 	/// </summary>
-	public class LoanAmount : RoundedAmount<LoanAmount>
+	public class LoanAmount : RoundedValue<LoanAmount>
 	{
 		private LoanAmount(double value) : base(value)
 		{

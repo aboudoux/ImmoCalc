@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Charges
 	/// </summary>
-	public class Charges : ExactAmount<Charges>
+	public class Charges : ExactValue<Charges>
 	{
 		private Charges(double value) : base(value)
 		{

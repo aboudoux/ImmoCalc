@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Surface en m2
 	/// </summary>
-	public class Surface : ExactAmount<Surface>
+	public class Surface : ExactValue<Surface>
 	{
 		private Surface(double value) : base(value)
 		{

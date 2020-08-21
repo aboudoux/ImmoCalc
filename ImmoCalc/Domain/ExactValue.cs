@@ -2,10 +2,10 @@ using System;
 
 namespace ImmoCalc.Domain
 {
-	public abstract class ExactAmount<T> : IAmountValue
+	public abstract class ExactValue<T> : IValue
 		where T : class
 	{
-		protected ExactAmount(double value)
+		protected ExactValue(double value)
 		{
 			Value = Math.Round(value, 2);
 		}

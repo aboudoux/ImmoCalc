@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Gain mensuel
 	/// </summary>
-	public class MonthlyGain : RoundedAmount<MonthlyGain>
+	public class MonthlyGain : RoundedValue<MonthlyGain>
 	{
 		private MonthlyGain(double value) : base(value)
 		{

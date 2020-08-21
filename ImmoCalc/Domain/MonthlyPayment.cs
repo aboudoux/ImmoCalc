@@ -5,7 +5,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Mensualité
 	/// </summary>
-	public class MonthlyPayment : RoundedAmount<MonthlyPayment>
+	public class MonthlyPayment : RoundedValue<MonthlyPayment>
 	{
 		protected MonthlyPayment(double value) : base(value)
 		{

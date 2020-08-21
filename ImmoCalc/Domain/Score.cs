@@ -6,7 +6,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// La note attribuée au bien (une note sur 10 qui peut être superieure ou négative)
 	/// </summary>
-	public class Score : ExactAmount<Score>
+	public class Score : ExactValue<Score>
 	{
 		private const double ChargesCoefficient = 1;
 		private const double ProfitabilityCoefficient = 2;
@@ -22,7 +22,7 @@ namespace ImmoCalc.Domain
 						 (MonthlyGainScore.From(monthlyGain).Value * MonthlyGainCoefficient) +
 			             (ChargesScore.From(charges, propertyTax).Value * ChargesCoefficient)) / TotalCoefficient);
 
-		private class ProfitabilityScore : ExactAmount<ProfitabilityScore>
+		private class ProfitabilityScore : ExactValue<ProfitabilityScore>
 		{
 			private ProfitabilityScore(double value) : base(value)
 			{
@@ -31,7 +31,7 @@ namespace ImmoCalc.Domain
 			public static ProfitabilityScore From(Profitability profitability) => new ProfitabilityScore((profitability.Value * 100) - 2);
 		}
 
-		private class MonthlyGainScore : ExactAmount<MonthlyGainScore>
+		private class MonthlyGainScore : ExactValue<MonthlyGainScore>
 		{
 			private MonthlyGainScore(double value) : base(value)
 			{
@@ -45,7 +45,7 @@ namespace ImmoCalc.Domain
 			}
 		}
 
-		private class ChargesScore : ExactAmount<ChargesScore>
+		private class ChargesScore : ExactValue<ChargesScore>
 		{
 			private ChargesScore(double value) : base(value)
 			{

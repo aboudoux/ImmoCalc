@@ -3,7 +3,7 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Pris d'achat
 	/// </summary>
-	public class BuyingPrice : ExactAmount<BuyingPrice>
+	public class BuyingPrice : ExactValue<BuyingPrice>
 	{
 		protected BuyingPrice(double value) : base(value)
 		{
