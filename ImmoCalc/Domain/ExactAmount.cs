@@ -13,5 +13,7 @@ namespace ImmoCalc.Domain
 		public double Value { get; }
 
 		public T Empty => Activator.CreateInstance(typeof(T), 0) as T;
+
+		public bool IsEmpty() => Math.Abs(Value) < double.Epsilon;
 	}
 }

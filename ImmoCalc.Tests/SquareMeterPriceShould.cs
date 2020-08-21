@@ -10,7 +10,7 @@ namespace ImmoCalc.Tests
 		[InlineData(150000,25, 6000)]
 		public void CalculatePrice(double totalPrice, double squareMeter, double expectedPrice)
 		{
-			SquareMeterPrice.Of(BuyingPrice.From(totalPrice), squareMeter).Value.Should().Be(expectedPrice);
+			SquareMeterPrice.Of(BuyingPrice.From(totalPrice), Surface.From(squareMeter)).Value.Should().Be(expectedPrice);
 		}
 	}
 }

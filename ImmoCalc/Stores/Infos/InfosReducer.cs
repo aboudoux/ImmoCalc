@@ -27,8 +27,7 @@ namespace ImmoCalc.Stores.Infos
 		public Task<Unit> Handle(InfosState.ChangeMonthlyRent action, CancellationToken cancellationToken)
 		{
 			State.MonthlyRent = action.MonthlyRent;
-			State.RateOfReturn = RateOfReturn.Of(State.BuyingPrice, action.MonthlyRent); // todo : ajouter les charges
-			State.MonthlyGain = MonthlyGain.Of(State.MonthlyPayment, action.MonthlyRent); // todo : ajouter les charges
+			//State.Profitability = Profitability.Of(State.BuyingPrice, action.MonthlyRent); // todo : ajouter les charges
 			return Unit.Task;
 		}
 

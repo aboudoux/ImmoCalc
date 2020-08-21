@@ -13,7 +13,7 @@ namespace ImmoCalc.Tests
 		[InlineData(65000,20,1.3,308)]
 		public void BeCalculated(double buyingPrice, int duration, double loanRate, double monthlyPaymentExpected)
 		{
-			MonthlyPayment.From(BuyingPrice.From(buyingPrice), LoanDuration.Of(duration), LoanRate.From(loanRate))
+			MonthlyPayment.Of(BuyingPrice.From(buyingPrice), LoanDuration.From(duration), LoanRate.From(loanRate))
 				.Value.Should().Be(monthlyPaymentExpected);
 		}
 	}

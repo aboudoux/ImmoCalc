@@ -7,7 +7,7 @@ namespace ImmoCalc.Stores.Infos {
 		public BuyingPrice BuyingPrice { get; set; }
 		public NotaryFees NotaryFees { get; set; }
 		public MonthlyRent MonthlyRent { get; set; }
-		public RateOfReturn RateOfReturn { get; set; }
+		public Profitability Profitability { get; set; }
 		public MonthlyGain MonthlyGain { get; set; }
 		public MonthlyPayment MonthlyPayment { get; set; }
 		public Charges Charges { get; set; }
@@ -17,7 +17,7 @@ namespace ImmoCalc.Stores.Infos {
 			BuyingPrice = BuyingPrice.Empty;
 			NotaryFees = NotaryFees.Empty;
 			MonthlyRent = MonthlyRent.Empty;
-			RateOfReturn = RateOfReturn.Empty;
+			Profitability = Profitability.Empty;
 			MonthlyGain = MonthlyGain.Empty;
 			MonthlyPayment = MonthlyPayment.Empty;
 		}

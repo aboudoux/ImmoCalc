@@ -2,6 +2,9 @@ using System.IO;
 
 namespace ImmoCalc.Domain
 {
+	/// <summary>
+	/// Durée du prêt
+	/// </summary>
 	public class LoanDuration
 	{
 		public int Value { get; }
@@ -13,6 +16,6 @@ namespace ImmoCalc.Domain
 			Value = duration;
 		}
 
-		public static LoanDuration Of(int duration) => new LoanDuration(duration);
+		public static LoanDuration From(int duration) => new LoanDuration(duration);
 	}
 }

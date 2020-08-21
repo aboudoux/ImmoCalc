@@ -1,5 +1,8 @@
 namespace ImmoCalc.Domain
 {
+	/// <summary>
+	/// Mensualité de l'assurance
+	/// </summary>
 	public class InsuranceMonthlyPayment : RoundedAmount<InsuranceMonthlyPayment>
 	{
 		private InsuranceMonthlyPayment(double value) : base(value)
