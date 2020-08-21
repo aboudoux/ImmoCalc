@@ -13,7 +13,7 @@ namespace ImmoCalc.Tests
 		[InlineData(200,300,-100)]
 		public void BeComputed(double monthlyIncome, double monthlyPayment, double expected)
 		{
-			MonthlyGain.Of(TestMonthlyPayment.From(monthlyPayment), TestMonthlyIncome.From(monthlyIncome)).Value
+			MonthlyGain.Of(Make<MonthlyPayment>.With(monthlyPayment), Make<MonthlyIncome>.With(monthlyIncome)).Value
 				.Should().Be(expected);
 		}
 	}

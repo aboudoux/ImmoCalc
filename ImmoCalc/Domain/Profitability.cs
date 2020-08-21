@@ -7,7 +7,7 @@ namespace ImmoCalc.Domain
 	/// </summary>
 	public class Profitability : Ratio<Profitability>
 	{
-		public Profitability(double value) : base(value) {
+		private Profitability(double value) : base(value) {
 		}
 
 		public static Profitability Of(BuyingPrice price, MonthlyIncome monthlyIncome) 

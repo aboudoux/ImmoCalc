@@ -7,7 +7,7 @@ namespace ImmoCalc.Domain
 	{
 		protected ExactAmount(double value)
 		{
-			Value = value;
+			Value = Math.Round(value, 2);
 		}
 
 		public double Value { get; }

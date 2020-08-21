@@ -1,14 +1,10 @@
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Text;
 using BlazorState;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace ImmoCalc {
 	public class Program {

@@ -5,7 +5,7 @@ namespace ImmoCalc.Domain
 	/// </summary>
 	public class MonthlyIncome : RoundedAmount<MonthlyIncome>
 	{
-		protected MonthlyIncome(double value) : base(value)
+		private MonthlyIncome(double value) : base(value)
 		{
 		}
 
