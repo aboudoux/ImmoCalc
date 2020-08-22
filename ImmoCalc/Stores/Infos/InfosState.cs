@@ -26,6 +26,7 @@ namespace ImmoCalc.Stores.Infos {
 		public MonthlyGain MonthlyGain { get; private set; }
 		public Profitability Profitability { get; private set; }
 		public Contribution Contribution { get; private set; }
+		public Score Score { get; private set; }
 
 
 		public override void Initialize()
@@ -61,6 +62,7 @@ namespace ImmoCalc.Stores.Infos {
 					SquareMeterPrice = SquareMeterPrice.Of(BuyingPrice, Surface);
 
 				LoanAmount = LoanAmount.Of(BuyingPrice, NotaryFees, Renovation);
+				Contribution= Contribution.Of(NotaryFees, Renovation);
 				PropertyTotalCost = PropertyTotalCost.Of(BuyingPrice, Renovation);
 			}
 
@@ -74,6 +76,15 @@ namespace ImmoCalc.Stores.Infos {
 			{
 				TotalMonthlyPayment = TotalMonthlyPayment.Of(MonthlyPayment.Of(LoanAmount, LoanDuration, LoanRate), InsuranceMonthlyPayment.Of(BuyingPrice, InsuranceRate));
 			}
+
+			if(MonthlyIncome.IsDefined() && TotalMonthlyPayment.IsDefined())
+				MonthlyGain = MonthlyGain.Of(TotalMonthlyPayment, MonthlyIncome);
+
+			if(MonthlyIncome.IsDefined() && BuyingPrice.IsDefined())
+				Profitability = Profitability.Of(BuyingPrice, MonthlyIncome);
+
+			if( Profitability.IsDefined() && MonthlyGain.IsDefined())
+				Score = Score.Of(Profitability, MonthlyGain, Charges, PropertyTax);
 		}
 		
 		public class ChangeValue : IAction

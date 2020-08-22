@@ -26,6 +26,9 @@ namespace ImmoCalc.Tests.Assets
 			{"loan duration", (a=>LoanDuration.From((int)a),a=>a.LoanDuration)},
 			{"loan rate", (LoanRate.From,a=>a.LoanRate)},
 			{"Insurance rate", (InsuranceRate.From,a=>a.InsuranceRate)},
+			{"monthly gain", (null,a=>a.MonthlyGain)},
+			{"profitability", (null,a=>a.Profitability)},
+			{"contribution", (null,a=>a.Contribution)},
 		};
 
 		public static IValue Get(string fieldName, double value) => Builders[fieldName].valueMaker(value);

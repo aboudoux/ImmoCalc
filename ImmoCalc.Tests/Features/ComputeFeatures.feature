@@ -63,3 +63,43 @@ Examples:
 | included     | not included | 149425     | 929                 |
 | not included | included     | 162000     | 1007                |
 | included     | included     | 172425     | 1071                |
+
+Scenario Outline: Compute monthly gain
+Given the loan duration is set to 15
+	And the loan rate is set to 1.35
+	And the Insurance rate is set to 0.10
+	And the charges is set to <ChargesPrice>
+	And the notary fees are not included in loan
+	And the charges are <Charges> in monthly rent
+	And the renovation is set to 23000
+	And the renovation are <Renovation> in loan
+	And the buying price is set to 139000	
+	When I set the monthly rent to <MonthlyRent>
+	Then the monthly gain value is <MonthlyGain>
+Examples: 
+| ChargesPrice | Charges      | Renovation   | MonthlyRent | MonthlyGain |
+| 80           | included     | not included | 880         | -65         |
+| 80           | not included | not included | 880         | 15          |
+
+Scenario: Compute profitability
+	Given the buying price is set to 139000	
+	And the monthly rent is set to 800
+	When I set the property tax to 600
+	Then the profitability value is 0.0602
+
+Scenario: Compute contribution
+Given the buying price is set to <BuyingPrice>
+	And the renovation is set to 0
+	And the notary fees are <NotaryFees> in loan
+	And the renovation are <Renovation> in loan
+	When I set the renovation to <RenovationPrice>
+	Then the contribution value is <Contribution>
+Examples: 
+| BuyingPrice | RenovationPrice | NotaryFees   | Renovation   | Contribution |
+| 100000      | 10000           | included     | included     | 0            |
+| 100000      | 10000           | not included | included     | 7500         |
+| 100000      | 10000           | included     | not included | 10000        |
+| 100000      | 10000           | not included | not included | 17500        |
+
+#Scenario: Compute score
+

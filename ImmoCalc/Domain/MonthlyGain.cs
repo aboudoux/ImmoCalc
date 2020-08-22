@@ -9,7 +9,7 @@ namespace ImmoCalc.Domain
 		{
 		}
 
-		public static MonthlyGain Of(MonthlyPayment monthlyPayment, MonthlyIncome monthlyIncome)
+		public static MonthlyGain Of(TotalMonthlyPayment monthlyPayment, MonthlyIncome monthlyIncome)
 			=> new MonthlyGain(monthlyIncome.Value - monthlyPayment.Value);
 	}
 }
