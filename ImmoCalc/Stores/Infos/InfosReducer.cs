@@ -19,22 +19,14 @@ namespace ImmoCalc.Stores.Infos
 
 		public override Task<Unit> Handle(InfosState.ChangeValue action, CancellationToken cancellationToken) {
 			switch (action.Value) {
-				case BuyingPrice v: ChangeValue(a => a.BuyingPrice, v); break;
-				case Surface v: ChangeValue(a=>a.Surface,v); break;
-
-				case MonthlyRent v: ChangeValue(a => a.MonthlyRent, v); break;
-				case Charges v: ChangeValue(a => a.Charges, v); break;
-
+				case BuyingPrice v: State.BuyingPrice = v; break;
+				case Surface v: State.Surface = v; break;
+				case MonthlyRent v: State.MonthlyRent = v; break;
+				case Charges v: State.Charges = v; break;
+				case Renovation v: State.Renovation = v.IncludedInLoanAmount(State.Renovation.IsIncludedInLoadAmount); break;
 			}
-			return Unit.Task;
-		}
-
-		private void ChangeValue(Expression<Func<InfosState, IValue>> member, IValue newValue) {
-
-			var expression = (MemberExpression) member.Body;
-			var name = expression.Member.Name;
-			State.SetPropertyValue(name, newValue);
 			State.Compute();
+			return Unit.Task;
 		}
 	}
 }

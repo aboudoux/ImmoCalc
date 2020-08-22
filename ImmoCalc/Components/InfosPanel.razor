@@ -73,6 +73,6 @@
 
     private BuyingPrice BuyingPrice {
         get => MyStore.BuyingPrice;
-        set => Mediator.Send(new InfosState.ChangeBuyingPrice(value)); 
+        set => Mediator.Send(new InfosState.ChangeValue(value)); 
     }
 }

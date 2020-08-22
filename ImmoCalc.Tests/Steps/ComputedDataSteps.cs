@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using FluentAssertions;
-using ImmoCalc.Domain;
-using ImmoCalc.Stores.Infos;
-using ImmoCalc.Tests.Assets;
+﻿using ImmoCalc.Tests.Assets;
 using TechTalk.SpecFlow;
 
 namespace ImmoCalc.Tests.Steps {
@@ -20,23 +12,34 @@ namespace ImmoCalc.Tests.Steps {
 			_context = context;
 		}
 
-		[When(@"I set the buying price to (.*)")]
-		public void WhenISetTheBuyingPriceTo(double price)
+		[Given(@"the (.*) is set to (.*)")]
+		public void GivenTheBuyingPriceIsSetTo(string fieldName, double value) 
 		{
-			_context.Reducer.Handle(new InfosState.ChangeValue(BuyingPrice.From(price)), CancellationToken.None);
+			_context.SetValue(fieldName, value);
 		}
 
-		[Then(@"the buying price value is (.*)")]
-		public void ThenTheBuyingPriceValueIs(double value)
+		[When(@"I set the (.*) to (.*)")]
+		public void WhenISetTheBuyingPriceTo(string fieldName, double value)
 		{
-			_context.State.BuyingPrice.Value.Should().Be(value);
+			_context.ChangeValue(fieldName, value);
 		}
 
-		[Then(@"the notary fees value is (.*)")]
-		public void ThenTheNotaryFeesValueIs(double value)
+		[Then(@"the (.*) value is (.*)")]
+		public void ThenTheBuyingPriceValueIs(string fieldName, double value)
 		{
-			_context.State.NotaryFees.Value.Should().Be(value);
+			_context.Assert(fieldName, value);
 		}
 
+		[Given(@"the notary fees are (.*) in loan")]
+		public void GivenTheNotaryFeesAreIncludedInLoan(string isIncluded)
+		{
+			_context.State.NotaryFees.IncludedInLoanAmount(isIncluded == "included");
+		}
+
+		[Given(@"the renovation are (.*) in loan")]
+		public void GivenTheRenovationAreIncludedInLoan(string isIncluded) 
+		{
+			_context.State.Renovation.IncludedInLoanAmount(isIncluded == "included");
+		}
 	}
 }

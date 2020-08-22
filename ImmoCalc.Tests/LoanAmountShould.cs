@@ -16,7 +16,7 @@ namespace ImmoCalc.Tests
 			var price = BuyingPrice.From(buyingPrice);
 			var loanAmount = LoanAmount.Of(price, 
 				NotaryFees.Of(price).IncludedInLoanAmount(includeNotaryFees),
-				Renovation.From(renovationPrice).IncludedInLoadAmount(includeRenovation));
+				Renovation.From(renovationPrice).IncludedInLoanAmount(includeRenovation));
 
 			loanAmount.Value.Should().Be(expectedLoanAmount);
 		}

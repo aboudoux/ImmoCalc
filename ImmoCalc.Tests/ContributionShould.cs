@@ -15,7 +15,7 @@ namespace ImmoCalc.Tests
 		public void BeComputed(double notaryFees, bool includeNotaryFees, double renovation, bool includeRenovation, double expectedContribution)
 		{
 			var contribution = Contribution.Of(Make<NotaryFees>.With(notaryFees).IncludedInLoanAmount(includeNotaryFees),
-				Renovation.From(renovation).IncludedInLoadAmount(includeRenovation));
+				Renovation.From(renovation).IncludedInLoanAmount(includeRenovation));
 
 			contribution.Value.Should().Be(expectedContribution);
 		}

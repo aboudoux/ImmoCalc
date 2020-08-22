@@ -55,21 +55,17 @@ namespace ImmoCalc.Stores.Infos {
 
 		public void Compute()
 		{
-			if (!BuyingPrice.IsEmpty())
+			if (BuyingPrice.IsDefined())
 			{
-				NotaryFees = NotaryFees.Of(BuyingPrice);
-				if(!Surface.IsEmpty())
+				NotaryFees = NotaryFees.Of(BuyingPrice).IncludedInLoanAmount(NotaryFees.IsIncludedInLoadAmount);
+				if(Surface.IsDefined())
 					SquareMeterPrice = SquareMeterPrice.Of(BuyingPrice, Surface);
-			}
-		}
 
-		public class ChangeBuyingPrice : IAction
-		{
-			public BuyingPrice BuyingPrice { get; }
-
-			public ChangeBuyingPrice(BuyingPrice buyingPrice)
-			{
-				BuyingPrice = buyingPrice;
+				if (Renovation.IsDefined())
+				{
+					LoanAmount = LoanAmount.Of(BuyingPrice, NotaryFees, Renovation);
+					PropertyTotalCost = PropertyTotalCost.Of(BuyingPrice, Renovation);
+				}
 			}
 		}
 		

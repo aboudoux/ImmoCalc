@@ -13,7 +13,7 @@ namespace ImmoCalc.Domain
 
 
 		public bool IsIncludedInLoadAmount { get; private set; }
-		public Renovation IncludedInLoadAmount(bool included)
+		public Renovation IncludedInLoanAmount(bool included)
 		{
 			IsIncludedInLoadAmount = included;
 			return this;

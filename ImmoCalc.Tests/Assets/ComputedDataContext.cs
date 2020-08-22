@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Threading;
+using FluentAssertions;
 using ImmoCalc.Stores.Infos;
 using ImmoCalc.Tests.Tools;
 
@@ -16,5 +17,14 @@ namespace ImmoCalc.Tests.Assets {
 
 			Reducer = new InfosReducer(new TestStore(State));
 		}
+
+		public void SetValue(string fieldName, double value) 
+			=> ValueFactory.SetState(State, fieldName, value);
+
+		public void ChangeValue(string fieldName, double value) 
+			=> Reducer.Handle(new InfosState.ChangeValue(ValueFactory.Get(fieldName, value)), CancellationToken.None);
+
+		public void Assert(string fieldName, double value)
+			=> ValueFactory.GetState(State, fieldName).Value.Should().Be(value);
 	}
 }

@@ -9,7 +9,7 @@ namespace ImmoCalc.Domain
 		{
 		}
 
-		public static PropertyTotalCost Of(BuyingPrice buyingPrice, NotaryFees notaryFees, Renovation renovation)
-			=> new PropertyTotalCost(buyingPrice.Value + notaryFees.Value + renovation.Value);
+		public static PropertyTotalCost Of(BuyingPrice buyingPrice, Renovation renovation)
+			=> new PropertyTotalCost(buyingPrice.Value + NotaryFees.Of(buyingPrice).Value + renovation.Value);
 	}
 }
