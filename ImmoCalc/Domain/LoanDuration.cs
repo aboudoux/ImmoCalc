@@ -5,10 +5,8 @@ namespace ImmoCalc.Domain
 	/// <summary>
 	/// Durée du prêt
 	/// </summary>
-	public class LoanDuration
+	public class LoanDuration : EmptyValue<LoanDuration>
 	{
-		public int Value { get; }
-
 		private LoanDuration(int duration)
 		{
 			if(duration > 30)

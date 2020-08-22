@@ -1,15 +1,15 @@
-﻿using System.Threading;
+﻿using System;
+using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 using BlazorState;
 using ImmoCalc.Domain;
 using MediatR;
+using TypeSupport.Extensions;
 
 namespace ImmoCalc.Stores.Infos
 {
-	public class InfosReducer : 
-		ActionHandler<InfosState.ChangeBuyingPrice>,
-		IRequestHandler<InfosState.ChangeMonthlyRent>,
-		IRequestHandler<InfosState.ChangeCharges>
+	public class InfosReducer : ActionHandler<InfosState.ChangeValue>
 	{
 		private InfosState State => Store.GetState<InfosState>();
 
@@ -17,25 +17,24 @@ namespace ImmoCalc.Stores.Infos
 		{
 		}
 
-		public override Task<Unit> Handle(InfosState.ChangeBuyingPrice action, CancellationToken cancellationToken)
-		{
-			State.BuyingPrice = action.BuyingPrice;
-			State.NotaryFees = NotaryFees.Of(action.BuyingPrice);
+		public override Task<Unit> Handle(InfosState.ChangeValue action, CancellationToken cancellationToken) {
+			switch (action.Value) {
+				case BuyingPrice v: ChangeValue(a => a.BuyingPrice, v); break;
+				case Surface v: ChangeValue(a=>a.Surface,v); break;
+
+				case MonthlyRent v: ChangeValue(a => a.MonthlyRent, v); break;
+				case Charges v: ChangeValue(a => a.Charges, v); break;
+
+			}
 			return Unit.Task;
 		}
 
-		public Task<Unit> Handle(InfosState.ChangeMonthlyRent action, CancellationToken cancellationToken)
-		{
-			State.MonthlyRent = action.MonthlyRent;
-			//State.Profitability = Profitability.Of(State.BuyingPrice, action.MonthlyRent); // todo : ajouter les charges
-			return Unit.Task;
-		}
+		private void ChangeValue(Expression<Func<InfosState, IValue>> member, IValue newValue) {
 
-		public Task<Unit> Handle(InfosState.ChangeCharges action, CancellationToken cancellationToken)
-		{
-			State.Charges = action.Charges;
-			
-			return Unit.Task;
+			var expression = (MemberExpression) member.Body;
+			var name = expression.Member.Name;
+			State.SetPropertyValue(name, newValue);
+			State.Compute();
 		}
 	}
 }

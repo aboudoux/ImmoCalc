@@ -1,25 +1,66 @@
 ﻿using BlazorState;
 using ImmoCalc.Domain;
+using MediatR;
 
 namespace ImmoCalc.Stores.Infos {
 	public class InfosState : State<InfosState>
 	{
 		public BuyingPrice BuyingPrice { get; set; }
-		public NotaryFees NotaryFees { get; set; }
 		public MonthlyRent MonthlyRent { get; set; }
-		public Profitability Profitability { get; set; }
-		public MonthlyGain MonthlyGain { get; set; }
-		public MonthlyPayment MonthlyPayment { get; set; }
 		public Charges Charges { get; set; }
+		public Surface Surface { get; set; }
+		public PropertyTax PropertyTax { get; set; }
+		public Renovation Renovation { get; set; }
+
+
+		public LoanDuration LoanDuration { get; set; }
+		public LoanRate LoanRate { get; set; }
+		public InsuranceRate InsuranceRate { get; set; }
+
+
+		public NotaryFees NotaryFees { get; private set; }
+		public LoanAmount LoanAmount { get; private set; }
+		public PropertyTotalCost PropertyTotalCost { get; private set; }
+		public SquareMeterPrice SquareMeterPrice { get; private set; }
+		public MonthlyIncome MonthlyIncome { get; private set; }
+		public MonthlyPayment MonthlyPayment { get; private set; }
+		public MonthlyGain MonthlyGain { get; private set; }
+		public Profitability Profitability { get; private set; }
+		public Contribution Contribution { get; private set; }
+
 
 		public override void Initialize()
 		{
 			BuyingPrice = BuyingPrice.Empty;
-			NotaryFees = NotaryFees.Empty;
 			MonthlyRent = MonthlyRent.Empty;
-			Profitability = Profitability.Empty;
-			MonthlyGain = MonthlyGain.Empty;
+			Charges = Charges.Empty;
+			Surface = Surface.Empty;
+			PropertyTax = PropertyTax.Empty;
+			Renovation = Renovation.Empty;
+
+			LoanDuration = LoanDuration.Empty;
+			LoanRate = LoanRate.Empty;
+			InsuranceRate = InsuranceRate.Empty;
+
+			NotaryFees = NotaryFees.Empty;
+			LoanAmount = LoanAmount.Empty;
+			PropertyTotalCost = PropertyTotalCost.Empty;
+			SquareMeterPrice = SquareMeterPrice.Empty;
+			MonthlyIncome = MonthlyIncome.Empty;
 			MonthlyPayment = MonthlyPayment.Empty;
+			MonthlyGain = MonthlyGain.Empty;
+			Profitability = Profitability.Empty;
+			Contribution = Contribution.Empty;
+		}
+
+		public void Compute()
+		{
+			if (!BuyingPrice.IsEmpty())
+			{
+				NotaryFees = NotaryFees.Of(BuyingPrice);
+				if(!Surface.IsEmpty())
+					SquareMeterPrice = SquareMeterPrice.Of(BuyingPrice, Surface);
+			}
 		}
 
 		public class ChangeBuyingPrice : IAction
@@ -31,24 +72,14 @@ namespace ImmoCalc.Stores.Infos {
 				BuyingPrice = buyingPrice;
 			}
 		}
-
-		public class ChangeMonthlyRent : IAction
+		
+		public class ChangeValue : IAction
 		{
-			public MonthlyRent MonthlyRent { get; }
+			public IValue Value { get; }
 
-			public ChangeMonthlyRent(MonthlyRent monthlyRent)
+			public ChangeValue(IValue value)
 			{
-				MonthlyRent = monthlyRent;
-			}
-		}
-
-		public class ChangeCharges : IAction
-		{
-			public Charges Charges { get; }
-
-			public ChangeCharges(Charges charges)
-			{
-				Charges = charges;
+				Value = value;
 			}
 		}
 	}

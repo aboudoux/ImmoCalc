@@ -5,7 +5,7 @@ namespace ImmoCalc.Domain
 	/// </summary>
 	public class BuyingPrice : ExactValue<BuyingPrice>
 	{
-		protected BuyingPrice(double value) : base(value)
+		private BuyingPrice(double value) : base(value)
 		{
 		}
 
