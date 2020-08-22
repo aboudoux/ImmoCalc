@@ -1,6 +1,5 @@
 ﻿using BlazorState;
 using ImmoCalc.Domain;
-using MediatR;
 
 namespace ImmoCalc.Stores.Infos {
 	public class InfosState : State<InfosState>
@@ -61,15 +60,20 @@ namespace ImmoCalc.Stores.Infos {
 				if(Surface.IsDefined())
 					SquareMeterPrice = SquareMeterPrice.Of(BuyingPrice, Surface);
 
-				if (Renovation.IsDefined())
-				{
-					LoanAmount = LoanAmount.Of(BuyingPrice, NotaryFees, Renovation);
-					PropertyTotalCost = PropertyTotalCost.Of(BuyingPrice, Renovation);
-				}
+				LoanAmount = LoanAmount.Of(BuyingPrice, NotaryFees, Renovation);
+				PropertyTotalCost = PropertyTotalCost.Of(BuyingPrice, Renovation);
 			}
 
 			if(MonthlyRent.IsDefined())
 				MonthlyIncome = MonthlyIncome.Of(MonthlyRent, Charges, PropertyTax);
+
+			if (LoanAmount.IsDefined() && 
+			    LoanDuration.IsDefined() && 
+			    LoanRate.IsDefined() &&
+			    InsuranceRate.IsDefined())
+			{
+				TotalMonthlyPayment = TotalMonthlyPayment.Of(MonthlyPayment.Of(LoanAmount, LoanDuration, LoanRate), InsuranceMonthlyPayment.Of(BuyingPrice, InsuranceRate));
+			}
 		}
 		
 		public class ChangeValue : IAction

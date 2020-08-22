@@ -45,3 +45,21 @@ Examples:
 | 880         | 80           | included     | 600         | 750           |
 | 880         | 80           | not included | 600         | 830           |
 
+
+Scenario Outline: Compute total monthly payment
+	Given the loan duration is set to 15
+	And the loan rate is set to 1.35
+	And the Insurance rate is set to 0.10
+	And the notary fees are <NotaryFees> in loan
+	And the renovation are <Renovation> in loan
+	When I set the buying price to 139000
+	And I set the renovation to 23000
+	Then the total monthly payment value is <TotalMonthlyPayment>
+	And the notary fees value is 10425
+	And the loan amount value is <LoanAmount>
+Examples: 
+| NotaryFees   | Renovation   | LoanAmount | TotalMonthlyPayment |
+| not included | not included | 139000     | 865                 |
+| included     | not included | 149425     | 929                 |
+| not included | included     | 162000     | 1007                |
+| included     | included     | 172425     | 1071                |

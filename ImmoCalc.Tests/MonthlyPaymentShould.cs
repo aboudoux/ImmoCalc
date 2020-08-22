@@ -1,5 +1,6 @@
 using FluentAssertions;
 using ImmoCalc.Domain;
+using ImmoCalc.Tests.Tools;
 using Xunit;
 
 namespace ImmoCalc.Tests
@@ -13,7 +14,7 @@ namespace ImmoCalc.Tests
 		[InlineData(65000,20,1.3,308)]
 		public void BeCalculated(double buyingPrice, int duration, double loanRate, double monthlyPaymentExpected)
 		{
-			MonthlyPayment.Of(BuyingPrice.From(buyingPrice), LoanDuration.From(duration), LoanRate.From(loanRate))
+			MonthlyPayment.Of(Make<LoanAmount>.With(buyingPrice), LoanDuration.From(duration), LoanRate.From(loanRate))
 				.Value.Should().Be(monthlyPaymentExpected);
 		}
 	}

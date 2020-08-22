@@ -11,7 +11,7 @@ namespace ImmoCalc.Domain
 		{
 		}
 
-		public static MonthlyPayment Of(BuyingPrice price, LoanDuration duration, LoanRate rate) 
-			=> new MonthlyPayment( (price.Value * (rate.Value/12)) / (1 - Math.Pow((1+(rate.Value/12)), -12 * duration.Value)));
+		public static MonthlyPayment Of(LoanAmount loanAmount, LoanDuration duration, LoanRate rate) 
+			=> new MonthlyPayment( (loanAmount.Value * (rate.Value/12)) / (1 - Math.Pow((1+(rate.Value/12)), -12 * duration.Value)));
 	}
 }
