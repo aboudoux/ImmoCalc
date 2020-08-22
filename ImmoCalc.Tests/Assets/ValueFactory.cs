@@ -12,23 +12,26 @@ namespace ImmoCalc.Tests.Assets
 		private static readonly Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<InfosState, IValue>> property) > Builders = new Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<InfosState, IValue>> property)>()
 		{
 			{"buying price", (BuyingPrice.From, a=>a.BuyingPrice )},
-			{"surface", (Surface.From, a=>a.Surface)},
-			{"square meter price", (null,a=>a.SquareMeterPrice)},
-			{"notary fees", (null,a=>a.NotaryFees)},
-			{"renovation", (Renovation.From,a=>a.Renovation)},
-			{"loan amount", (null,a=>a.LoanAmount)},
-			{"property total cost", (null,a=>a.PropertyTotalCost)},
 			{"monthly rent", (MonthlyRent.From,a=>a.MonthlyRent)},
 			{"charges", (Charges.From,a=>a.Charges)},
+			{"surface", (Surface.From, a=>a.Surface)},
 			{"property tax", (PropertyTax.From,a=>a.PropertyTax)},
-			{"monthly income", (null,a=>a.MonthlyIncome)},
-			{"total monthly payment", (null,a=>a.TotalMonthlyPayment)},
+			{"renovation", (Renovation.From,a=>a.Renovation)},
+
 			{"loan duration", (a=>LoanDuration.From((int)a),a=>a.LoanDuration)},
 			{"loan rate", (LoanRate.From,a=>a.LoanRate)},
-			{"Insurance rate", (InsuranceRate.From,a=>a.InsuranceRate)},
+			{"insurance rate", (InsuranceRate.From,a=>a.InsuranceRate)},
+			{"notary fees", (null,a=>a.NotaryFees)},
+			{"loan amount", (null,a=>a.LoanAmount)},
+
+			{"property total cost", (null,a=>a.PropertyTotalCost)},
+			{"square meter price", (null,a=>a.SquareMeterPrice)},
+			{"monthly income", (null,a=>a.MonthlyIncome)},
+			{"total monthly payment", (null,a=>a.TotalMonthlyPayment)},
 			{"monthly gain", (null,a=>a.MonthlyGain)},
 			{"profitability", (null,a=>a.Profitability)},
 			{"contribution", (null,a=>a.Contribution)},
+			{"score", (null,a=>a.Score)},
 		};
 
 		public static IValue Get(string fieldName, double value) => Builders[fieldName].valueMaker(value);

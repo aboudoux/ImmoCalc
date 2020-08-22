@@ -90,11 +90,24 @@ namespace ImmoCalc.Stores.Infos {
 		public class ChangeValue : IAction
 		{
 			public IValue Value { get; }
+			public ChangeValue(IValue value) => Value = value;
+		}
 
-			public ChangeValue(IValue value)
-			{
-				Value = value;
-			}
+		public abstract class IncludeAction : IAction {
+			public bool Include { get; }
+			protected IncludeAction(bool include) => Include = include;
+		}
+
+		public class IncludeChargesInMonthlyRent : IncludeAction {
+			public IncludeChargesInMonthlyRent(bool include) : base(include) { }
+		}
+
+		public class IncludeRenovationInLoadAmount : IncludeAction {
+			public IncludeRenovationInLoadAmount(bool include) : base(include) { }
+		}
+
+		public class IncludeNotaryFeesInLoadAmount : IncludeAction {
+			public IncludeNotaryFeesInLoadAmount(bool include) : base(include) { }
 		}
 	}
 }

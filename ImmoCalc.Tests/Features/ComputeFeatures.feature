@@ -18,7 +18,7 @@ Scenario Outline: Compute loan amount
 	Given the buying price is set to <BuyingPrice>
 	And the renovation is set to 0
 	And the notary fees are <NotaryFees> in loan
-	And the renovation are <Renovation> in loan
+	And the renovation is <Renovation> in loan
 	When I set the renovation to <RenovationPrice>
 	Then the loan amount value is <LoanAmount>
 Examples: 
@@ -49,9 +49,9 @@ Examples:
 Scenario Outline: Compute total monthly payment
 	Given the loan duration is set to 15
 	And the loan rate is set to 1.35
-	And the Insurance rate is set to 0.10
+	And the insurance rate is set to 0.10
 	And the notary fees are <NotaryFees> in loan
-	And the renovation are <Renovation> in loan
+	And the renovation is <Renovation> in loan
 	When I set the buying price to 139000
 	And I set the renovation to 23000
 	Then the total monthly payment value is <TotalMonthlyPayment>
@@ -67,12 +67,12 @@ Examples:
 Scenario Outline: Compute monthly gain
 Given the loan duration is set to 15
 	And the loan rate is set to 1.35
-	And the Insurance rate is set to 0.10
+	And the insurance rate is set to 0.10
 	And the charges is set to <ChargesPrice>
 	And the notary fees are not included in loan
 	And the charges are <Charges> in monthly rent
 	And the renovation is set to 23000
-	And the renovation are <Renovation> in loan
+	And the renovation is <Renovation> in loan
 	And the buying price is set to 139000	
 	When I set the monthly rent to <MonthlyRent>
 	Then the monthly gain value is <MonthlyGain>
@@ -91,7 +91,7 @@ Scenario: Compute contribution
 Given the buying price is set to <BuyingPrice>
 	And the renovation is set to 0
 	And the notary fees are <NotaryFees> in loan
-	And the renovation are <Renovation> in loan
+	And the renovation is <Renovation> in loan
 	When I set the renovation to <RenovationPrice>
 	Then the contribution value is <Contribution>
 Examples: 
@@ -101,5 +101,23 @@ Examples:
 | 100000      | 10000           | included     | not included | 10000        |
 | 100000      | 10000           | not included | not included | 17500        |
 
-#Scenario: Compute score
+Scenario Outline: Compute score
+When I set the buying price to <BuyingPrice>
+And I set the monthly rent to <MonthRent>
+And I set the charges to <Charges>
+And I set the charges <ChargesI> in monthly rent
+And I set the property tax to <PropertyTax>
+And I set the renovation to <Renovation>
+And I set the renovation <RenovationI> in loan
+And I set the notary fees <NotaryFeesI> in loan
+And I set the loan duration to <LoanDuration>
+And I set the loan rate to <LoanRate>
+And I set the insurance rate to <InsuranceRate>
+Then the score value is <ScoreValue>
 
+Examples: 
+| BuyingPrice | MonthRent | Charges | ChargesI    | PropertyTax | Renovation | RenovationI  | LoanDuration | LoanRate | InsuranceRate | NotaryFeesI  | ScoreValue |
+| 100000      | 500       | 100     | no included | 600         | 8000       | not included | 15           | 1.35     | 0.10          | not included | 2.19       |
+| 139000      | 800       | 80      | no included | 600         | 2000       | not included | 15           | 1.35     | 0.10          | not included | 3.34       |
+| 80000       | 560       | 110     | no included | 864         | 0          | not included | 15           | 1.35     | 0.10          | not included | 4.63       |
+| 80000       | 560       | 110     | no included | 864         | 0          | not included | 20           | 1.35     | 0.10          | not included | 6.01       |

@@ -36,10 +36,22 @@ namespace ImmoCalc.Tests.Steps {
 			_context.State.NotaryFees.IncludedInLoanAmount(isIncluded == Included);
 		}
 
-		[Given(@"the renovation are (.*) in loan")]
+		[When(@"I set the notary fees (.*) in loan")]
+		public void UpdateNotaryFeesInclude(string isIncluded)
+		{
+			_context.ChangeNotaryFeesInclude(isIncluded == Included);
+		}
+
+		[Given(@"the renovation is (.*) in loan")]
 		public void GivenTheRenovationAreIncludedInLoan(string isIncluded) 
 		{
 			_context.State.Renovation.IncludedInLoanAmount(isIncluded == Included);
+		}
+
+		[When(@"I set the renovation (.*) in loan")]
+		public void UpdateRenovationInclude(string isIncluded)
+		{
+			_context.ChangeRenovationInclude(isIncluded == Included);
 		}
 
 		[Given(@"the charges are (.*) in monthly rent")]
@@ -48,5 +60,10 @@ namespace ImmoCalc.Tests.Steps {
 			_context.State.Charges.IncludedInMonthlyRent(isIncluded == Included);
 		}
 
+		[When(@"I set the charges (.*) in monthly rent")]
+		public void UpdateChargesInclude(string isIncluded)
+		{
+			_context.ChangeChargesInclude(isIncluded == Included);
+		}
 	}
 }

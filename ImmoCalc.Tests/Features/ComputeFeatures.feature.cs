@@ -213,7 +213,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And(string.Format("the notary fees are {0} in loan", notaryFees), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 21
- testRunner.And(string.Format("the renovation are {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the renovation is {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 22
  testRunner.When(string.Format("I set the renovation to {0}", renovationPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -363,13 +363,13 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("the loan rate is set to 1.35", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 52
- testRunner.And("the Insurance rate is set to 0.10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the insurance rate is set to 0.10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 53
  testRunner.And(string.Format("the notary fees are {0} in loan", notaryFees), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 54
- testRunner.And(string.Format("the renovation are {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the renovation is {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 55
  testRunner.When("I set the buying price to 139000", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -432,7 +432,7 @@ testRunner.Given("the loan duration is set to 15", ((string)(null)), ((TechTalk.
  testRunner.And("the loan rate is set to 1.35", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 70
- testRunner.And("the Insurance rate is set to 0.10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the insurance rate is set to 0.10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 71
  testRunner.And(string.Format("the charges is set to {0}", chargesPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -447,7 +447,7 @@ testRunner.Given("the loan duration is set to 15", ((string)(null)), ((TechTalk.
  testRunner.And("the renovation is set to 23000", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 75
- testRunner.And(string.Format("the renovation are {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the renovation is {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 76
  testRunner.And("the buying price is set to 139000", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -553,13 +553,97 @@ testRunner.Given(string.Format("the buying price is set to {0}", buyingPrice), (
  testRunner.And(string.Format("the notary fees are {0} in loan", notaryFees), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 94
- testRunner.And(string.Format("the renovation are {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the renovation is {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 95
  testRunner.When(string.Format("I set the renovation to {0}", renovationPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 96
  testRunner.Then(string.Format("the contribution value is {0}", contribution), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableTheoryAttribute(DisplayName="Compute score")]
+        [Xunit.TraitAttribute("FeatureTitle", "Compute feature")]
+        [Xunit.TraitAttribute("Description", "Compute score")]
+        [Xunit.InlineDataAttribute("100000", "500", "100", "no included", "600", "8000", "not included", "15", "1.35", "0.10", "not included", "2.19", new string[0])]
+        [Xunit.InlineDataAttribute("139000", "800", "80", "no included", "600", "2000", "not included", "15", "1.35", "0.10", "not included", "3.34", new string[0])]
+        [Xunit.InlineDataAttribute("80000", "560", "110", "no included", "864", "0", "not included", "15", "1.35", "0.10", "not included", "4.63", new string[0])]
+        [Xunit.InlineDataAttribute("80000", "560", "110", "no included", "864", "0", "not included", "20", "1.35", "0.10", "not included", "6.01", new string[0])]
+        public virtual void ComputeScore(string buyingPrice, string monthRent, string charges, string chargesI, string propertyTax, string renovation, string renovationI, string loanDuration, string loanRate, string insuranceRate, string notaryFeesI, string scoreValue, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("BuyingPrice", buyingPrice);
+            argumentsOfScenario.Add("MonthRent", monthRent);
+            argumentsOfScenario.Add("Charges", charges);
+            argumentsOfScenario.Add("ChargesI", chargesI);
+            argumentsOfScenario.Add("PropertyTax", propertyTax);
+            argumentsOfScenario.Add("Renovation", renovation);
+            argumentsOfScenario.Add("RenovationI", renovationI);
+            argumentsOfScenario.Add("LoanDuration", loanDuration);
+            argumentsOfScenario.Add("LoanRate", loanRate);
+            argumentsOfScenario.Add("InsuranceRate", insuranceRate);
+            argumentsOfScenario.Add("NotaryFeesI", notaryFeesI);
+            argumentsOfScenario.Add("ScoreValue", scoreValue);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compute score", null, tagsOfScenario, argumentsOfScenario);
+#line 104
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 105
+testRunner.When(string.Format("I set the buying price to {0}", buyingPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 106
+testRunner.And(string.Format("I set the monthly rent to {0}", monthRent), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 107
+testRunner.And(string.Format("I set the charges to {0}", charges), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 108
+testRunner.And(string.Format("I set the charges {0} in monthly rent", chargesI), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 109
+testRunner.And(string.Format("I set the property tax to {0}", propertyTax), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 110
+testRunner.And(string.Format("I set the renovation to {0}", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 111
+testRunner.And(string.Format("I set the renovation {0} in loan", renovationI), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 112
+testRunner.And(string.Format("I set the notary fees {0} in loan", notaryFeesI), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 113
+testRunner.And(string.Format("I set the loan duration to {0}", loanDuration), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 114
+testRunner.And(string.Format("I set the loan rate to {0}", loanRate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 115
+testRunner.And(string.Format("I set the insurance rate to {0}", insuranceRate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 116
+testRunner.Then(string.Format("the score value is {0}", scoreValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

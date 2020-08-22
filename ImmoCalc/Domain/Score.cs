@@ -41,7 +41,7 @@ namespace ImmoCalc.Domain
 			{
 				return monthlyGain.Value <= 0 
 					? new MonthlyGainScore(5 - (Math.Abs(monthlyGain.Value) / 40)) 
-					: new MonthlyGainScore(monthlyGain.Value / 40);
+					: new MonthlyGainScore(5 + (monthlyGain.Value / 40));
 			}
 		}
 

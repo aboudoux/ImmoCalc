@@ -24,6 +24,15 @@ namespace ImmoCalc.Tests.Assets {
 		public void ChangeValue(string fieldName, double value) 
 			=> Reducer.Handle(new InfosState.ChangeValue(ValueFactory.Get(fieldName, value)), CancellationToken.None);
 
+		public void ChangeRenovationInclude(bool isIncluded)
+			=> Reducer.Handle(new InfosState.IncludeRenovationInLoadAmount(isIncluded), CancellationToken.None);
+
+		public void ChangeNotaryFeesInclude(bool isIncluded)
+			=> Reducer.Handle(new InfosState.IncludeNotaryFeesInLoadAmount(isIncluded), CancellationToken.None);
+
+		public void ChangeChargesInclude(bool isIncluded)
+			=> Reducer.Handle(new InfosState.IncludeChargesInMonthlyRent(isIncluded), CancellationToken.None);
+
 		public void Assert(string fieldName, double value)
 			=> ValueFactory.GetState(State, fieldName).Value.Should().Be(value);
 	}
