@@ -1,7 +1,9 @@
 ﻿@inherits BlazorState.BlazorStateComponent
+@using System.Data.Common
 @using ImmoCalc.Components.Converters
 @using ImmoCalc.Domain
 @using ImmoCalc.Stores.Infos
+@using MediatR
 
 <div class="card">
     <div class="card-header bg-primary border rounded shadow-sm">
@@ -26,19 +28,29 @@
                 <ColumnDefinition Width="30" />
             </ColumnDefinitions>
             <Content>
-                <BuyingInformation Row="1" Label="Prix total" ShowCents="@false" @bind-Value="@BuyingPrice" Converter="@_buyingPriceValueConverter"/>
-                @*<BuyingInformation Row="2" Label="Loyer mensuel" />
-                <BuyingInformation Row="3" Label="Dont charges" />
-                <BuyingInformation Row="4" Label="Surface" Currency="m²" />*@
+                <BuyingInformation Row="1" Label="Prix d'achat" ShowCents="@false" @bind-Value="@_buyingPrice.Value" Converter="@_buyingPrice.Converter"/>
+                <BuyingInformation Row="2" Label="Loyer mensuel" @bind-Value="@_monthlyRent.Value" Converter="@_monthlyRent.Converter"/>
+                <BuyingInformation Row="3" Label="Charges" @bind-Value="@_charges.Value" Converter="@_charges.Converter" />
+                <BuyingInformation Row="4" Label="Surface" Currency="m²"  @bind-Value="@_surface.Value" Converter="@_surface.Converter"/>
+                <BuyingInformation Row="5" Label="Taxe foncière" Currency="€/an"  @bind-Value="@_propertyTax.Value" Converter="@_propertyTax.Converter"/>
+                <BuyingInformation Row="6" Label="Travaux" Currency="€"  @bind-Value="@_renovation.Value" Converter="@_renovation.Converter"/>
             </Content>
         </Grid>
     </div>
-    <div class="card-body bg-dark border rounded border-dark">
+    <div class="card-body bg-info border rounded border-dark">
+        <div class="row text-left">            
+            <div class="col-auto"><i class="fas fa-house-damage"></i></div>
+            <div class="col">
+                <h5 class="text-white mb-0">Banque</h5>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
         <Grid>
             <ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </ColumnDefinitions>
             <RowDefinitions>
                 <RowDefinition/>
@@ -48,15 +60,17 @@
                 <RowDefinition/>
             </RowDefinitions>
             <Content>
-                <GridElement Row="1" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
-                    <label class="text-white">Frais notaire :</label>
-                </GridElement>
-                <GridElement Row="1" Column="2">
-                    <label class="text-white">@_amountToStringConverter.Convert(NotaryFees)</label>
-                </GridElement>
-                <GridElement Row="1" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
-                    <label class="text-white">€</label>
-                </GridElement>
+                <BuyingInformation Row="1" Label="Durée du prêt" Currency="ans" @bind-Value="@_loanDuration.Value" Converter="@_loanDuration.Converter" />
+                <BuyingInformation Row="2" Label="Taux du prêt" Currency="%" @bind-Value="@_loanRate.Value" Converter="@_loanRate.Converter" />
+                @*<GridElement Row="1" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
+            <label class="text-dark">Frais notaire :</label>
+        </GridElement>
+        <GridElement Row="1" Column="2">
+            <label class="text-dark">@_amountToStringConverter.Convert(NotaryFees)</label>
+        </GridElement>
+        <GridElement Row="1" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
+            <label class="text-dark">€</label>
+        </GridElement>*@
             </Content>
         </Grid>
     </div>
@@ -66,13 +80,52 @@
 
     private InfosState MyStore => Store.GetState<InfosState>();
 
+    private EditableProperty<BuyingPrice> _buyingPrice;
+    private EditableProperty<MonthlyRent> _monthlyRent;
+    private EditableProperty<Charges> _charges;
+    private EditableProperty<Surface> _surface;
+    private EditableProperty<PropertyTax> _propertyTax;
+    private EditableProperty<Renovation> _renovation;
+
+    private EditableProperty<LoanDuration> _loanDuration;
+    private EditableProperty<LoanRate> _loanRate;
+
+    protected override void OnInitialized()
+    {
+        _buyingPrice = new EditableProperty<BuyingPrice>(Mediator, BuyingPrice.From, ()=> MyStore.BuyingPrice);
+        _monthlyRent = new EditableProperty<MonthlyRent>(Mediator, MonthlyRent.From, () => MyStore.MonthlyRent);
+        _charges = new EditableProperty<Charges>(Mediator, Charges.From, () => MyStore.Charges);
+        _surface = new EditableProperty<Surface>(Mediator, Surface.From, () => MyStore.Surface);
+        _propertyTax = new EditableProperty<PropertyTax>(Mediator, PropertyTax.From, () => MyStore.PropertyTax);
+        _renovation = new EditableProperty<Renovation>(Mediator, Renovation.From, () => MyStore.Renovation);
+
+        _loanDuration = new EditableProperty<LoanDuration>(Mediator,a=> LoanDuration.From((int)a), () => MyStore.LoanDuration);
+        _loanRate = new EditableProperty<LoanRate>(Mediator, LoanRate.From, ()=>MyStore.LoanRate);
+    }
+
+
     private readonly AmountToStringConverter _amountToStringConverter = new AmountToStringConverter();
-    private readonly AmountConverter<BuyingPrice> _buyingPriceValueConverter = new AmountConverter<BuyingPrice>(BuyingPrice.From);
 
     private NotaryFees NotaryFees => MyStore.NotaryFees;
 
-    private BuyingPrice BuyingPrice {
-        get => MyStore.BuyingPrice;
-        set => Mediator.Send(new InfosState.ChangeValue(value)); 
+    public class EditableProperty<T> where T : class, IValue
+    {
+        private readonly IMediator _mediator;
+        private readonly Func<T> _retrieveFunc;
+        public AmountConverter<T> Converter { get; }
+
+        public EditableProperty(IMediator mediator, Func<double, T> factory, Func<T> retrieveFunc)
+        {
+            if (factory == null) throw new ArgumentNullException(nameof(factory));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _retrieveFunc = retrieveFunc;
+            Converter = new AmountConverter<T>(factory);
+        }
+
+        public T Value
+        {
+            get => _retrieveFunc();
+            set => _mediator.Send(new InfosState.ChangeValue(value));
+        }
     }
 }
