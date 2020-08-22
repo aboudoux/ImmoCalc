@@ -15,12 +15,12 @@ Scenario: Compute square meter price
 	And the square meter price value is 4000
 
 Scenario Outline: Compute loan amount
-Given the buying price is set to <BuyingPrice>
-And the renovation is set to 0
-And the notary fees are <NotaryFees> in loan
-And the renovation are <Renovation> in loan
-When I set the renovation to <RenovationPrice>
-Then the loan amount value is <LoanAmount>
+	Given the buying price is set to <BuyingPrice>
+	And the renovation is set to 0
+	And the notary fees are <NotaryFees> in loan
+	And the renovation are <Renovation> in loan
+	When I set the renovation to <RenovationPrice>
+	Then the loan amount value is <LoanAmount>
 Examples: 
 | BuyingPrice | RenovationPrice | NotaryFees   | Renovation   | LoanAmount |
 | 100000      | 10000           | included     | included     | 117500     |
@@ -33,3 +33,15 @@ Scenario: Compute property total cost
 Given the buying price is set to 100000
 When I set the renovation to 5000
 Then the property total cost value is 112500
+
+Scenario Outline: Compute monthly income
+	Given the monthly rent is set to <MonthlyRent>
+	And the charges is set to <ChargesPrice>
+	And the charges are <Charges> in monthly rent
+	When I set the property tax to <PropertyTax>
+	Then the monthly income value is <MonthlyIncome>
+Examples: 
+| MonthlyRent | ChargesPrice | Charges      | PropertyTax | MonthlyIncome |
+| 880         | 80           | included     | 600         | 750           |
+| 880         | 80           | not included | 600         | 830           |
+

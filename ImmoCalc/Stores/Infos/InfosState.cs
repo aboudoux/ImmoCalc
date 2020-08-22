@@ -23,7 +23,7 @@ namespace ImmoCalc.Stores.Infos {
 		public PropertyTotalCost PropertyTotalCost { get; private set; }
 		public SquareMeterPrice SquareMeterPrice { get; private set; }
 		public MonthlyIncome MonthlyIncome { get; private set; }
-		public MonthlyPayment MonthlyPayment { get; private set; }
+		public TotalMonthlyPayment TotalMonthlyPayment { get; private set; }
 		public MonthlyGain MonthlyGain { get; private set; }
 		public Profitability Profitability { get; private set; }
 		public Contribution Contribution { get; private set; }
@@ -47,7 +47,7 @@ namespace ImmoCalc.Stores.Infos {
 			PropertyTotalCost = PropertyTotalCost.Empty;
 			SquareMeterPrice = SquareMeterPrice.Empty;
 			MonthlyIncome = MonthlyIncome.Empty;
-			MonthlyPayment = MonthlyPayment.Empty;
+			TotalMonthlyPayment = TotalMonthlyPayment.Empty;
 			MonthlyGain = MonthlyGain.Empty;
 			Profitability = Profitability.Empty;
 			Contribution = Contribution.Empty;
@@ -67,6 +67,9 @@ namespace ImmoCalc.Stores.Infos {
 					PropertyTotalCost = PropertyTotalCost.Of(BuyingPrice, Renovation);
 				}
 			}
+
+			if(MonthlyRent.IsDefined())
+				MonthlyIncome = MonthlyIncome.Of(MonthlyRent, Charges, PropertyTax);
 		}
 		
 		public class ChangeValue : IAction

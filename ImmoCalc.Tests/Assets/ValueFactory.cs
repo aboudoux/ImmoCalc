@@ -18,6 +18,10 @@ namespace ImmoCalc.Tests.Assets
 			{"renovation", (Renovation.From,a=>a.Renovation)},
 			{"loan amount", (null,a=>a.LoanAmount)},
 			{"property total cost", (null,a=>a.PropertyTotalCost)},
+			{"monthly rent", (MonthlyRent.From,a=>a.MonthlyRent)},
+			{"charges", (Charges.From,a=>a.Charges)},
+			{"property tax", (PropertyTax.From,a=>a.PropertyTax)},
+			{"monthly income", (null,a=>a.MonthlyIncome)},
 		};
 
 		public static IValue Get(string fieldName, double value) => Builders[fieldName].valueMaker(value);

@@ -6,7 +6,7 @@ namespace ImmoCalc.Tests.Steps {
 	public sealed class ComputedDataSteps 
 	{
 		private readonly ComputedDataContext _context;
-
+		private const string Included = "included";
 		public ComputedDataSteps(ComputedDataContext context)
 		{
 			_context = context;
@@ -33,13 +33,20 @@ namespace ImmoCalc.Tests.Steps {
 		[Given(@"the notary fees are (.*) in loan")]
 		public void GivenTheNotaryFeesAreIncludedInLoan(string isIncluded)
 		{
-			_context.State.NotaryFees.IncludedInLoanAmount(isIncluded == "included");
+			_context.State.NotaryFees.IncludedInLoanAmount(isIncluded == Included);
 		}
 
 		[Given(@"the renovation are (.*) in loan")]
 		public void GivenTheRenovationAreIncludedInLoan(string isIncluded) 
 		{
-			_context.State.Renovation.IncludedInLoanAmount(isIncluded == "included");
+			_context.State.Renovation.IncludedInLoanAmount(isIncluded == Included);
 		}
+
+		[Given(@"the charges are (.*) in monthly rent")]
+		public void GivenTheChargesAreIncludedInMonthlyPayment(string isIncluded)
+		{
+			_context.State.Charges.IncludedInMonthlyRent(isIncluded == Included);
+		}
+
 	}
 }

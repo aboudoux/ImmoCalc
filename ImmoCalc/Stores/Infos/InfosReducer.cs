@@ -22,8 +22,9 @@ namespace ImmoCalc.Stores.Infos
 				case BuyingPrice v: State.BuyingPrice = v; break;
 				case Surface v: State.Surface = v; break;
 				case MonthlyRent v: State.MonthlyRent = v; break;
-				case Charges v: State.Charges = v; break;
+				case Charges v: State.Charges = v.IncludedInMonthlyRent(State.Charges.IsIncludedInMonthlyRent); break;
 				case Renovation v: State.Renovation = v.IncludedInLoanAmount(State.Renovation.IsIncludedInLoadAmount); break;
+				case PropertyTax v: State.PropertyTax = v; break;
 			}
 			State.Compute();
 			return Unit.Task;

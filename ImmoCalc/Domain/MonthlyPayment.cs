@@ -3,11 +3,11 @@ using System;
 namespace ImmoCalc.Domain
 {
 	/// <summary>
-	/// Mensualité
+	/// Mensualité du prêt
 	/// </summary>
 	public class MonthlyPayment : RoundedValue<MonthlyPayment>
 	{
-		protected MonthlyPayment(double value) : base(value)
+		private MonthlyPayment(double value) : base(value)
 		{
 		}
 

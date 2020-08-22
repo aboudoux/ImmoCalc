@@ -204,22 +204,22 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 18
-testRunner.Given(string.Format("the buying price is set to {0}", buyingPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the buying price is set to {0}", buyingPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 19
-testRunner.And("the renovation is set to 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the renovation is set to 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 20
-testRunner.And(string.Format("the notary fees are {0} in loan", notaryFees), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the notary fees are {0} in loan", notaryFees), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 21
-testRunner.And(string.Format("the renovation are {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the renovation are {0} in loan", renovation), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 22
-testRunner.When(string.Format("I set the renovation to {0}", renovationPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I set the renovation to {0}", renovationPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 23
-testRunner.Then(string.Format("the loan amount value is {0}", loanAmount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the loan amount value is {0}", loanAmount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -261,6 +261,60 @@ testRunner.When("I set the renovation to 5000", ((string)(null)), ((TechTalk.Spe
 #line hidden
 #line 35
 testRunner.Then("the property total cost value is 112500", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableTheoryAttribute(DisplayName="Compute monthly income")]
+        [Xunit.TraitAttribute("FeatureTitle", "Compute feature")]
+        [Xunit.TraitAttribute("Description", "Compute monthly income")]
+        [Xunit.InlineDataAttribute("880", "80", "included", "600", "750", new string[0])]
+        [Xunit.InlineDataAttribute("880", "80", "not included", "600", "830", new string[0])]
+        public virtual void ComputeMonthlyIncome(string monthlyRent, string chargesPrice, string charges, string propertyTax, string monthlyIncome, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("MonthlyRent", monthlyRent);
+            argumentsOfScenario.Add("ChargesPrice", chargesPrice);
+            argumentsOfScenario.Add("Charges", charges);
+            argumentsOfScenario.Add("PropertyTax", propertyTax);
+            argumentsOfScenario.Add("MonthlyIncome", monthlyIncome);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compute monthly income", null, tagsOfScenario, argumentsOfScenario);
+#line 37
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 38
+ testRunner.Given(string.Format("the monthly rent is set to {0}", monthlyRent), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 39
+ testRunner.And(string.Format("the charges is set to {0}", chargesPrice), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 40
+ testRunner.And(string.Format("the charges are {0} in monthly rent", charges), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 41
+ testRunner.When(string.Format("I set the property tax to {0}", propertyTax), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 42
+ testRunner.Then(string.Format("the monthly income value is {0}", monthlyIncome), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
