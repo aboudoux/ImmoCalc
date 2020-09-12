@@ -7,8 +7,6 @@ namespace ImmoCalc.Domain
 	{
 		protected Ratio(double value) 
 		{
-			if (value < 0 || value > 100)
-				throw new InvalidDataException("Le taux doit être compris entre 0 et 100%");
 			Value = value / 100;
 		}
 	}

@@ -24,11 +24,15 @@
     [Parameter]
     public bool ShowCents { get; set; } = true;
 
+    private string _inputValue = string.Empty;
     private string InputValue
     {
-        get => Converter.Convert(Value) as string;
+        get => _inputValue.EndsWith(Display.DecimalSeparator)
+            ? _inputValue
+            : Converter.Convert(Value) as string;
         set
         {
+            _inputValue = value;
             Value = (TValue)Converter.ConvertBack(value);
             ValueChanged.InvokeAsync(Value);
         }

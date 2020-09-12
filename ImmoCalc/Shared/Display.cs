@@ -6,7 +6,7 @@ namespace ImmoCalc.Shared
 {
 	public class Display {
 		private readonly string _value = string.Empty;
-		private const string DecimalSeparator = ",";
+		public const string DecimalSeparator = ",";
 		private static readonly CultureInfo FrCultureInfo = new CultureInfo("fr-FR");
 
 		private Display(string value) {
