@@ -6,45 +6,32 @@
 @using MediatR
 
 <div class="card">
-    <div class="card-header bg-primary border rounded shadow-sm">
-        <div class="row text-left">            
-            <div class="col-auto"><i class="fas fa-house-damage"></i></div>
-            <div class="col">
-                <h5 class="text-white mb-0">Informations d&#39;achat</h5>
-            </div>
-        </div>
-    </div>
+    @CardHeader("Informations d'achat !", "bg-primary", "fa-house-damage")
     <div class="card-body">
         <Grid ColumnGap="3" RowGap="3">
             <RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
             </RowDefinitions>
             <ColumnDefinitions>
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="30"/>
             </ColumnDefinitions>
             <Content>
-                <BuyingInformation Row="1" Label="Prix d'achat" ShowCents="@false" @bind-Value="@_buyingPrice.Value" Converter="@_buyingPrice.Converter"/>
-                <BuyingInformation Row="2" Label="Loyer mensuel" @bind-Value="@_monthlyRent.Value" Converter="@_monthlyRent.Converter"/>
-                <BuyingInformation Row="3" Label="Charges" @bind-Value="@_charges.Value" Converter="@_charges.Converter" />
-                <BuyingInformation Row="4" Label="Surface" Currency="m²"  @bind-Value="@_surface.Value" Converter="@_surface.Converter"/>
-                <BuyingInformation Row="5" Label="Taxe foncière" Currency="€/an"  @bind-Value="@_propertyTax.Value" Converter="@_propertyTax.Converter"/>
-                <BuyingInformation Row="6" Label="Travaux" Currency="€"  @bind-Value="@_renovation.Value" Converter="@_renovation.Converter"/>
+                <DataInput Row="1" Label="Prix d'achat" ShowCents="@false" @bind-Value="@_buyingPrice.Value" Converter="@_buyingPrice.Converter"/>
+                <DataInput Row="2" Label="Loyer mensuel" @bind-Value="@_monthlyRent.Value" Converter="@_monthlyRent.Converter"/>
+                <DataInput Row="3" Label="Charges" @bind-Value="@_charges.Value" Converter="@_charges.Converter"/>
+                <DataInput Row="4" Label="Surface" Currency="m²" @bind-Value="@_surface.Value" Converter="@_surface.Converter"/>
+                <DataInput Row="5" Label="Taxe foncière" Currency="€/an" @bind-Value="@_propertyTax.Value" Converter="@_propertyTax.Converter"/>
+                <DataInput Row="6" Label="Travaux" Currency="€" @bind-Value="@_renovation.Value" Converter="@_renovation.Converter"/>
             </Content>
         </Grid>
     </div>
-    <div class="card-body bg-info border rounded border-dark">
-        <div class="row text-left">            
-            <div class="col-auto"><i class="fas fa-house-damage"></i></div>
-            <div class="col">
-                <h5 class="text-white mb-0">Banque</h5>
-            </div>
-        </div>
-    </div>
+    
+    @CardHeader("Banque", "bg-info", "fa-house-damage")
     <div class="card-body">
         <Grid>
             <ColumnDefinitions>
@@ -60,20 +47,46 @@
                 <RowDefinition/>
             </RowDefinitions>
             <Content>
-                <BuyingInformation Row="1" Label="Durée du prêt" Currency="ans" @bind-Value="@_loanDuration.Value" Converter="@_loanDuration.Converter" ShowCents="@false" />
-                <BuyingInformation Row="2" Label="Taux du prêt" Currency="%" @bind-Value="@_loanRate.Value" Converter="@_loanRate.Converter"/>
-                @*<GridElement Row="1" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
-            <label class="text-dark">Frais notaire :</label>
-        </GridElement>
-        <GridElement Row="1" Column="2">
-            <label class="text-dark">@_amountToStringConverter.Convert(NotaryFees)</label>
-        </GridElement>
-        <GridElement Row="1" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
-            <label class="text-dark">€</label>
-        </GridElement>*@
+                <DataInput Row="1" Label="Durée du prêt" Currency="ans" @bind-Value="@_loanDuration.Value" Converter="@_loanDuration.Converter" ShowCents="@false"/>
+                <DataInput Row="2" Label="Taux du prêt" Currency="%" @bind-Value="@_loanRate.Value" Converter="@_loanRate.Converter"/>
+                <DataInput Row="3" Label="Taux assurance" Currency="%" @bind-Value="@_insuranceRate.Value" Converter="@_insuranceRate.Converter"/>
+
+                <DataOutput Row="4" Label="Frais de notaire" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.NotaryFees))"/>
+
             </Content>
         </Grid>
     </div>
+    
+    @CardHeader("Calculs","bg-info", "fa-house-damage")
+<div class="card-body">
+    <Grid>
+        <ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </ColumnDefinitions>
+        <RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </RowDefinitions>
+        <Content>
+           
+            <DataOutput Row="1" Label="Cout total" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.PropertyTotalCost))" />
+            <DataOutput Row="2" Label="Prix au m2" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.SquareMeterPrice))" />
+            <DataOutput Row="3" Label="Revenu" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.MonthlyIncome))" />
+            <DataOutput Row="4" Label="Mensualité" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.TotalMonthlyPayment))" />
+            <DataOutput Row="5" Label="Gain mensuel" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.MonthlyGain))" />
+            <DataOutput Row="6" Label="Rentabilite" Currency="%" Value="@((string) _amountToStringConverter.Convert(MyStore.Profitability))" />
+            <DataOutput Row="6" Label="Rentabilite" Currency="%" Value="@((string) _amountToStringConverter.Convert(MyStore.Profitability))" />
+            <DataOutput Row="7" Label="Apport" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.Contribution))" />
+            @*<DataOutput Row="8" Label="Score" Currency="/10" Value="@((string) _amountToStringConverter.Convert(MyStore.Score))" />*@
+
+        </Content>
+    </Grid>
+</div>
 </div>
 
 @code {
@@ -89,6 +102,7 @@
 
     private AmountProperty<LoanDuration> _loanDuration;
     private RatioProperty<LoanRate> _loanRate;
+    private RatioProperty<InsuranceRate> _insuranceRate;
 
     protected override void OnInitialized()
     {
@@ -101,13 +115,22 @@
 
         _loanDuration = new AmountProperty<LoanDuration>(Mediator,a=> LoanDuration.From((int)a), () => MyStore.LoanDuration);
         _loanRate = new RatioProperty<LoanRate>(Mediator, LoanRate.From, ()=>MyStore.LoanRate);
+        _insuranceRate = new RatioProperty<InsuranceRate>(Mediator, InsuranceRate.From, ()=>MyStore.InsuranceRate);
     }
 
 
     private readonly AmountToStringConverter _amountToStringConverter = new AmountToStringConverter();
 
-    private NotaryFees NotaryFees => MyStore.NotaryFees;
+    private RenderFragment CardHeader(string title, string color, string icon)
+        => @<div class="card-header border rounded shadow-sm @color">
+               <div class="row text-left">
+                   <div class="col-auto"><i class="fas @icon"></i></div>
+                   <div class="col">
+                       <h5 class="text-white mb-0">@title</h5>
+                   </div>
+               </div>
+           </div>;
 
 
-    
+
 }
