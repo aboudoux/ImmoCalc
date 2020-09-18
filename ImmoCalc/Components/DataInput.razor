@@ -10,6 +10,9 @@
 <GridElement Row="@Row" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
     <label>@Currency</label>
 </GridElement>
+<GridElement Row="@Row" Column="4" HorizontalAlignment="@Alignment.Start">
+    @AfterLabel
+</GridElement>
 
 @code {
     [Parameter]
@@ -23,6 +26,9 @@
 
     [Parameter]
     public bool ShowCents { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment AfterLabel { get; set; }
 
     private string _inputValue = string.Empty;
     private string InputValue

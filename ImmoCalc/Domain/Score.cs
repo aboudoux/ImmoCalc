@@ -13,7 +13,7 @@ namespace ImmoCalc.Domain
 		private const double MonthlyGainCoefficient = 3;
 		private static double TotalCoefficient => ChargesCoefficient + ProfitabilityCoefficient + MonthlyGainCoefficient;
 
-		public Score(double value) : base(value)
+		private Score(double value) : base(value)
 		{
 		}
 

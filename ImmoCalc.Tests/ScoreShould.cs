@@ -1,4 +1,5 @@
 using FluentAssertions;
+using ImmoCalc.Components.Converters;
 using ImmoCalc.Domain;
 using ImmoCalc.Tests.Tools;
 using Xunit;
@@ -23,6 +24,14 @@ namespace ImmoCalc.Tests
 			);
 
 			score.Value.Should().Be(expectedScore);
+		}
+
+		[Fact]
+		public void BeConvertedToStringThroughtConverter()
+		{
+			AmountToStringConverter converter = new AmountToStringConverter();
+			Score s = Score.Empty;
+			converter.Convert(s).Should().Be("");
 		}
 	}
 }

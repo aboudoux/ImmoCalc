@@ -16,9 +16,9 @@
                 <RowDefinition/>
             </RowDefinitions>
             <ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="Auto"/>
             </ColumnDefinitions>
             <Content>
                 <DataInput Row="1" Label="Prix d'achat" ShowCents="@false" @bind-Value="@_buyingPrice.Value" Converter="@_buyingPrice.Converter"/>
@@ -35,9 +35,10 @@
     <div class="card-body">
         <Grid>
             <ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </ColumnDefinitions>
             <RowDefinitions>
                 <RowDefinition/>
@@ -47,10 +48,9 @@
                 <RowDefinition/>
             </RowDefinitions>
             <Content>
-                <DataInput Row="1" Label="Durée du prêt" Currency="ans" @bind-Value="@_loanDuration.Value" Converter="@_loanDuration.Converter" ShowCents="@false"/>
+                <DataInput Row="1" Label="Durée du prêt" Currency="ans" @bind-Value="@_loanDuration.Value" Converter="@_loanDuration.Converter" ShowCents="@false" />
                 <DataInput Row="2" Label="Taux du prêt" Currency="%" @bind-Value="@_loanRate.Value" Converter="@_loanRate.Converter"/>
                 <DataInput Row="3" Label="Taux assurance" Currency="%" @bind-Value="@_insuranceRate.Value" Converter="@_insuranceRate.Converter"/>
-
                 <DataOutput Row="4" Label="Frais de notaire" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.NotaryFees))"/>
 
             </Content>
@@ -79,10 +79,9 @@
             <DataOutput Row="3" Label="Revenu" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.MonthlyIncome))" />
             <DataOutput Row="4" Label="Mensualité" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.TotalMonthlyPayment))" />
             <DataOutput Row="5" Label="Gain mensuel" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.MonthlyGain))" />
-            <DataOutput Row="6" Label="Rentabilite" Currency="%" Value="@((string) _amountToStringConverter.Convert(MyStore.Profitability))" />
-            <DataOutput Row="6" Label="Rentabilite" Currency="%" Value="@((string) _amountToStringConverter.Convert(MyStore.Profitability))" />
+            <DataOutput Row="6" Label="Rentabilite" Currency="%" Value="@((string) _ratioToStringConverter.Convert(MyStore.Profitability))" />
             <DataOutput Row="7" Label="Apport" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.Contribution))" />
-            @*<DataOutput Row="8" Label="Score" Currency="/10" Value="@((string) _amountToStringConverter.Convert(MyStore.Score))" />*@
+            <DataOutput Row="8" Label="Score" Currency="/10" Value="@((string) _amountToStringConverter.Convert(MyStore.Score))" />
 
         </Content>
     </Grid>
@@ -120,6 +119,7 @@
 
 
     private readonly AmountToStringConverter _amountToStringConverter = new AmountToStringConverter();
+    private readonly RatioToStringConverter _ratioToStringConverter = new RatioToStringConverter();
 
     private RenderFragment CardHeader(string title, string color, string icon)
         => @<div class="card-header border rounded shadow-sm @color">

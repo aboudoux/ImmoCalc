@@ -51,6 +51,8 @@ namespace ImmoCalc.Stores.Infos {
 			MonthlyGain = MonthlyGain.Empty;
 			Profitability = Profitability.Empty;
 			Contribution = Contribution.Empty;
+
+			Score = Score.Empty;
 		}
 
 		public void Compute()
