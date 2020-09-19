@@ -29,6 +29,7 @@ namespace ImmoCalc {
 							typeof(Program).GetTypeInfo().Assembly,
 						}
 			);
+			aServiceCollection.AddAntDesign();
 		}
 	}
 }

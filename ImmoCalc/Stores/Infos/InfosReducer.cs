@@ -36,18 +36,21 @@ namespace ImmoCalc.Stores.Infos
 		public Task<Unit> Handle(InfosState.IncludeChargesInMonthlyRent action, CancellationToken cancellationToken)
 		{
 			State.Charges.IncludedInMonthlyRent(action.Include);
+			State.Compute();
 			return Unit.Task;
 		}
 
 		public Task<Unit> Handle(InfosState.IncludeNotaryFeesInLoadAmount action, CancellationToken cancellationToken)
 		{
 			State.NotaryFees.IncludedInLoanAmount(action.Include);
+			State.Compute();
 			return Unit.Task;
 		}
 
 		public Task<Unit> Handle(InfosState.IncludeRenovationInLoadAmount action, CancellationToken cancellationToken)
 		{
 			State.Renovation.IncludedInLoanAmount(action.Include);
+			State.Compute();
 			return Unit.Task;
 		}
 	}

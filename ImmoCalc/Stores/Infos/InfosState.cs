@@ -38,9 +38,9 @@ namespace ImmoCalc.Stores.Infos {
 			PropertyTax = PropertyTax.Empty;
 			Renovation = Renovation.Empty;
 
-			LoanDuration = LoanDuration.Empty;
-			LoanRate = LoanRate.Empty;
-			InsuranceRate = InsuranceRate.Empty;
+			LoanDuration = LoanDuration.From(15);
+			LoanRate = LoanRate.From(1.3);
+			InsuranceRate = InsuranceRate.From(1);
 
 			NotaryFees = NotaryFees.Empty;
 			LoanAmount = LoanAmount.Empty;

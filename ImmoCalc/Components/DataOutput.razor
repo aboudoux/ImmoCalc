@@ -1,11 +1,14 @@
 ﻿  <GridElement Row="@Row" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
       <label class="text-dark">@Label :</label>
   </GridElement>
-  <GridElement Row="@Row" Column="2">
+  <GridElement Row="@Row" Column="2" VerticalAlignment="@Alignment.Center" HorizontalAlignment="@Alignment.Center">
       <label class="text-dark">@Value</label>
   </GridElement>
   <GridElement Row="@Row" Column="3" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
       <label class="text-dark">@Currency</label>
+  </GridElement>
+  <GridElement Row="@Row" Column="4" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
+      @AfterLabel
   </GridElement>
 
 @code {
@@ -20,4 +23,7 @@
 
     [Parameter]
     public string Value { get; set; }
+
+    [Parameter]
+    public RenderFragment AfterLabel { get; set; }
 }

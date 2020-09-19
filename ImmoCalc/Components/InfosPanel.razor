@@ -6,8 +6,8 @@
 @using MediatR
 
 <div class="card">
-    @CardHeader("Informations d'achat !", "bg-primary", "fa-house-damage")
-    <div class="card-body">
+    @CardHeader("Informations d'achat", "bg-primary", "fa-house-damage")
+    <div class="card-body" style="padding: 1px;">
         <Grid ColumnGap="3" RowGap="3">
             <RowDefinitions>
                 <RowDefinition/>
@@ -17,13 +17,22 @@
             </RowDefinitions>
             <ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </ColumnDefinitions>
             <Content>
                 <DataInput Row="1" Label="Prix d'achat" ShowCents="@false" @bind-Value="@_buyingPrice.Value" Converter="@_buyingPrice.Converter"/>
                 <DataInput Row="2" Label="Loyer mensuel" @bind-Value="@_monthlyRent.Value" Converter="@_monthlyRent.Converter"/>
-                <DataInput Row="3" Label="Charges" @bind-Value="@_charges.Value" Converter="@_charges.Converter"/>
+                <DataInput Row="3" Label="Charges" @bind-Value="@_charges.Value" Converter="@_charges.Converter">
+                    <AfterLabel>
+                        <div class="row">
+                            <label>incluses</label>
+                            <Switch Checked="@IncludedCharges" OnChange="OnIncludedChargesChange" />
+                        </div>
+                        
+                    </AfterLabel>
+                </DataInput>
                 <DataInput Row="4" Label="Surface" Currency="m²" @bind-Value="@_surface.Value" Converter="@_surface.Converter"/>
                 <DataInput Row="5" Label="Taxe foncière" Currency="€/an" @bind-Value="@_propertyTax.Value" Converter="@_propertyTax.Converter"/>
                 <DataInput Row="6" Label="Travaux" Currency="€" @bind-Value="@_renovation.Value" Converter="@_renovation.Converter"/>
@@ -31,12 +40,12 @@
         </Grid>
     </div>
     
-    @CardHeader("Banque", "bg-info", "fa-house-damage")
-    <div class="card-body">
+    @CardHeader("Banque", "bg-info", "fa-bank")
+    <div class="card-body" style="padding: 1px;">
         <Grid>
             <ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </ColumnDefinitions>
@@ -49,16 +58,31 @@
             </RowDefinitions>
             <Content>
                 <DataInput Row="1" Label="Durée du prêt" Currency="ans" @bind-Value="@_loanDuration.Value" Converter="@_loanDuration.Converter" ShowCents="@false" />
-                <DataInput Row="2" Label="Taux du prêt" Currency="%" @bind-Value="@_loanRate.Value" Converter="@_loanRate.Converter"/>
-                <DataInput Row="3" Label="Taux assurance" Currency="%" @bind-Value="@_insuranceRate.Value" Converter="@_insuranceRate.Converter"/>
-                <DataOutput Row="4" Label="Frais de notaire" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.NotaryFees))"/>
+                <DataInput Row="2" Label="Taux du prêt" Currency="%" @bind-Value="@_loanRate.Value" Converter="@_loanRate.Converter" />
+                <DataInput Row="3" Label="Taux assurance" Currency="%" @bind-Value="@_insuranceRate.Value" Converter="@_insuranceRate.Converter" />
+                <DataOutput Row="4" Label="Frais de notaire" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.NotaryFees))">
+                    <AfterLabel>
+                        <div class="row">
+                            <label>inclus</label>
+                            <Switch Checked="@IncludedNotaryFees" OnChange="OnIncludedNotaryFeesChange" />
+                        </div>
+                    </AfterLabel>
+                </DataOutput>
+                <GridElement Row="5" Column="1" HorizontalAlignment="@Alignment.End" VerticalAlignment="@Alignment.Center">
+                    <label>Inclure les travaux :</label>
+                </GridElement>
+                <GridElement Row="5" Column="2" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
+                    <Switch Checked="IncludedRenovation" OnChange="OnIncludedRenovatioChange" />
+                </GridElement>
+                <DataOutput Row="6" Label="Montant de l'emprunt" Currency="€" Value="@((string)_amountToStringConverter.Convert(MyStore.LoanAmount) )"/>
+                <DataOutput Row="7" Label="Apport" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.Contribution))" />
 
             </Content>
         </Grid>
     </div>
     
-    @CardHeader("Calculs","bg-info", "fa-house-damage")
-<div class="card-body">
+    @CardHeader("Calculs", "bg-success", "fa-calculator")
+<div class="card-body" style="padding: 1px;">
     <Grid>
         <ColumnDefinitions>
             <ColumnDefinition />
@@ -80,8 +104,7 @@
             <DataOutput Row="4" Label="Mensualité" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.TotalMonthlyPayment))" />
             <DataOutput Row="5" Label="Gain mensuel" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.MonthlyGain))" />
             <DataOutput Row="6" Label="Rentabilite" Currency="%" Value="@((string) _ratioToStringConverter.Convert(MyStore.Profitability))" />
-            <DataOutput Row="7" Label="Apport" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.Contribution))" />
-            <DataOutput Row="8" Label="Score" Currency="/10" Value="@((string) _amountToStringConverter.Convert(MyStore.Score))" />
+            <DataOutput Row="7" Label="Score" Currency="/10" Value="@((string) _amountToStringConverter.Convert(MyStore.Score))" />
 
         </Content>
     </Grid>
@@ -103,8 +126,17 @@
     private RatioProperty<LoanRate> _loanRate;
     private RatioProperty<InsuranceRate> _insuranceRate;
 
+    private bool IncludedCharges => MyStore.Charges.IsIncludedInMonthlyRent;
+    private void OnIncludedChargesChange(bool value) => Mediator.Send(new InfosState.IncludeChargesInMonthlyRent(value));
+
+    private bool IncludedNotaryFees => MyStore.NotaryFees.IsIncludedInLoadAmount;
+    private void OnIncludedNotaryFeesChange(bool value) => Mediator.Send(new InfosState.IncludeNotaryFeesInLoadAmount(value));
+
+    private bool IncludedRenovation => MyStore.Renovation.IsIncludedInLoadAmount;
+    private void OnIncludedRenovatioChange(bool value) => Mediator.Send(new InfosState.IncludeRenovationInLoadAmount(value));
+
     protected override void OnInitialized()
-    {
+{
         _buyingPrice = new AmountProperty<BuyingPrice>(Mediator, BuyingPrice.From, ()=> MyStore.BuyingPrice);
         _monthlyRent = new AmountProperty<MonthlyRent>(Mediator, MonthlyRent.From, () => MyStore.MonthlyRent);
         _charges = new AmountProperty<Charges>(Mediator, Charges.From, () => MyStore.Charges);
@@ -122,7 +154,7 @@
     private readonly RatioToStringConverter _ratioToStringConverter = new RatioToStringConverter();
 
     private RenderFragment CardHeader(string title, string color, string icon)
-        => @<div class="card-header border rounded shadow-sm @color">
+        => @<div class="card-header border rounded shadow-sm @color" style="padding: 1px;">
                <div class="row text-left">
                    <div class="col-auto"><i class="fas @icon"></i></div>
                    <div class="col">
