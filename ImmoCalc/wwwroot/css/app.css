@@ -136,6 +136,14 @@ app {
     top: 0.5rem;
 }
 
+.centered {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -100px;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
         display: none;
@@ -180,4 +188,5 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+
 }
