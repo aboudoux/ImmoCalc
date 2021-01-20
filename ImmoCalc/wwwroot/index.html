@@ -12,13 +12,17 @@
     <link href="css/loadscreen.css" rel="stylesheet" />
     <link href="manifest.json" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
-    <link href="_content/AntDesign/css/ant-design-blazor.css" rel="stylesheet" />
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+
 </head>
 
 <body>
-<app >
+<ion-app>
     <div class="fullscreen animate__animated animate__infinite animate__pulse"></div>
-</app>
+</ion-app>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.

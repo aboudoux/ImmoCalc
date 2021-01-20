@@ -1,0 +1,63 @@
+﻿@page "/simulator"
+@inject NavigationManager Navigation
+
+<ion-header>
+    <ion-toolbar mode="ios">
+        <ion-buttons slot="start">
+            <ion-back-button default-href="/" @onclick="@GoBack">Back</ion-back-button>
+        </ion-buttons>
+        <ion-title>Simulation</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen class="ion-padding" scroll-y="false">
+    <ion-slides pager="true">
+        <ion-slide>
+            <ion-content>
+                <ion-title>Informations sur le bien</ion-title>
+
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nom</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Adresse</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </form>
+            </ion-content>
+        </ion-slide>
+
+        <ion-slide>
+            <ion-content>
+                <h2>What is Ionic?</h2>
+                <p><b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.</p>
+            </ion-content>
+        </ion-slide>
+
+        <ion-slide>
+            <img src="./slide-3.png"/>
+            <h2>What is Ionic Appflow?</h2>
+            <p><b>Ionic Appflow</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new level of app development agility to mobile dev teams.</p>
+        </ion-slide>
+
+
+    </ion-slides>
+</ion-content>
+
+<style>
+    ion-slides {
+        height: 100%;
+    }
+</style>
+
+@code {
+
+
+    private string osef { get; set; }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

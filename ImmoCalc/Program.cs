@@ -10,7 +10,7 @@ namespace ImmoCalc {
 	public class Program {
 		public static async Task Main(string[] args) {
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
-			builder.RootComponents.Add<App>("app");
+			builder.RootComponents.Add<App>("ion-app");
 
 			builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 			ConfigureServices(builder.Services);
@@ -29,7 +29,6 @@ namespace ImmoCalc {
 							typeof(Program).GetTypeInfo().Assembly,
 						}
 			);
-			aServiceCollection.AddAntDesign();
 		}
 	}
 }
