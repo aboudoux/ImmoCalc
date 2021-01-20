@@ -1,5 +1,6 @@
 ﻿<div class="btn-group">
-    <input id="searchinput" type="search" class="form-control" @bind-value="InputValue" @bind-value:event="oninput">
+    <input id="searchinput" class="form-control form-control-lg" type="text" @bind-value="InputValue" @bind-value:event="oninput">
+    @*<input id="searchinput" type="search" class="form-control" @bind-value="InputValue" @bind-value:event="oninput">*@
     <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
 </div>
 
@@ -29,9 +30,9 @@
 
 }
 
-<style>
+@*<style>
     #searchinput {
-        height: calc(1.5em);
+        height: 40px;
         width: 100px;
     }
     #searchclear {
@@ -39,10 +40,10 @@
         right: 5px;
         top: 0;
         bottom: 0;
-        height: 14px;
+        height: 16px;
         margin: auto;
         font-size: 14px;
         cursor: pointer;
         color: #ccc;
     }
-</style>
+</style>*@

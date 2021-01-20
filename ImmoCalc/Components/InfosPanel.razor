@@ -28,7 +28,7 @@
                     <AfterLabel>
                         <div class="row">
                             <label>incluses</label>
-                            <Switch Checked="@IncludedCharges" OnChange="OnIncludedChargesChange" />
+                            @*<Switch Checked="@IncludedCharges" OnChange="OnIncludedChargesChange" />*@
                         </div>
                         
                     </AfterLabel>
@@ -64,7 +64,7 @@
                     <AfterLabel>
                         <div class="row">
                             <label>inclus</label>
-                            <Switch Checked="@IncludedNotaryFees" OnChange="OnIncludedNotaryFeesChange" />
+                            @*<Switch Checked="@IncludedNotaryFees" OnChange="OnIncludedNotaryFeesChange" />*@
                         </div>
                     </AfterLabel>
                 </DataOutput>
@@ -72,7 +72,7 @@
                     <label>Inclure les travaux :</label>
                 </GridElement>
                 <GridElement Row="5" Column="2" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
-                    <Switch Checked="IncludedRenovation" OnChange="OnIncludedRenovatioChange" />
+                    @*<Switch Checked="IncludedRenovation" OnChange="OnIncludedRenovatioChange" />*@
                 </GridElement>
                 <DataOutput Row="6" Label="Montant de l'emprunt" Currency="€" Value="@((string)_amountToStringConverter.Convert(MyStore.LoanAmount) )"/>
                 <DataOutput Row="7" Label="Apport" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.Contribution))" />
