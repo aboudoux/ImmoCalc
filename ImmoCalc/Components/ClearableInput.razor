@@ -1,49 +1,80 @@
-﻿<div class="btn-group">
-    <input id="searchinput" class="form-control form-control-lg" type="text" @bind-value="InputValue" @bind-value:event="oninput">
-    @*<input id="searchinput" type="search" class="form-control" @bind-value="InputValue" @bind-value:event="oninput">*@
-    <span id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
-</div>
+﻿@inject IJSRuntime JsRuntime;
 
-@code {
+    <div>
+        <div class="btn-group">
+            <input id="@InputId.ToString()" class="form-control form-control-lg" type="text" @bind-value="InputValue" @bind-value:event="oninput" />
+            <label>@Label</label>
 
-    [Parameter]
-    public bool ShowCents { get; set; } = true;
+            @if (!InputValue.IsEmpty()) {
+                <span id="searchclear" @onclick="@Clear" class="glyphicon glyphicon-remove-circle"></span>
+            }
+        </div>
+    </div>
 
-    private string InputValue
-    {
-        get => Value;
-        set
+
+    @code {
+
+        private Guid _inputId = Guid.Empty;
+        private Guid InputId
         {
-            if (Display.IsValid(value))
+            get
             {
-                Value = Display.AsDecimal(value).ToString(ShowCents ? 2 : 0);
-                ValueChanged.InvokeAsync(Value);
+                if (_inputId == Guid.Empty)
+                    _inputId = Guid.NewGuid();
+                return _inputId;
             }
         }
+
+        [Parameter]
+        public bool ShowCents { get; set; } = true;
+
+        [Parameter]
+        public string Label { get; set; }
+
+        private string InputValue
+        {
+            get => Value;
+            set
+            {
+                if (Display.IsValid(value)) {
+                    Value = Display.AsDecimal(value).ToString(ShowCents ? 2 : 0);
+                    ValueChanged.InvokeAsync(Value);
+                }
+            }
+        }
+
+        [Parameter]
+        public string Value { get; set; }
+
+        [Parameter]
+        public EventCallback<string> ValueChanged { get; set; }
+
+        private void Clear() {
+            InputValue = string.Empty;
+            JsRuntime.InvokeVoidAsync("focusElement", InputId.ToString());
+        }
+
     }
 
-    [Parameter]
-    public string Value { get; set; }
+    <style>
+        .btn-group > label {
+            top: -5px;
+            left: 8px;
+            position: absolute;
+            background-color: white;
+            padding: 0px 2px 0px 2px;
+            font-size: 12px;
+        }
 
-    [Parameter]
-    public EventCallback<string> ValueChanged { get; set; }
-
-}
-
-@*<style>
-    #searchinput {
-        height: 40px;
-        width: 100px;
-    }
-    #searchclear {
-        position: absolute;
-        right: 5px;
-        top: 0;
-        bottom: 0;
-        height: 16px;
-        margin: auto;
-        font-size: 14px;
-        cursor: pointer;
-        color: #ccc;
-    }
-</style>*@
+        #searchclear {
+            position: absolute;
+            right: 5px;
+            top: 0;
+            bottom: 0;
+            height: 16px;
+            margin: auto;
+            font-size: 14px;
+            cursor: pointer;
+            color: #ccc;
+        }
+    </style>
