@@ -9,15 +9,16 @@
         <ion-title>Simulation</ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content fullscreen class="ion-padding" scroll-y="false">
-    <ion-slides pager="true">
+<ion-content scroll-y="false" style="--background: #f3f3f3;">
+    <ion-slides pager="true" style="height: 55%;">
         <ion-slide>
             <ion-content>
-                <ion-title>Informations sur le bien</ion-title>
-                <div class="form-group">
+                
+                <ion-title><ion-icon name="business-outline"></ion-icon>Informations sur le bien</ion-title>
+                <div class="form-group" style="margin-left: 10px; margin-right: 10px;">
                     <input class="form-control form-control-lg" type="text" placeholder="Nom">
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-left: 10px; margin-right: 10px;">
                     <textarea class="form-control form-control-lg" id="exampleFormControlTextarea1" rows="5" placeholder="Adresse..."></textarea>
                 </div>
 
@@ -26,12 +27,25 @@
 
         <ion-slide>
             <ion-content>
-                <ion-title>Informations sur le bien</ion-title>
+                <ion-title><ion-icon name="cash-outline"></ion-icon>Informations sur l'achat</ion-title>
                 <div class="form-group">
-                    <ClearableInput Label="Prix"></ClearableInput>
+                    <ClearableInput Label="Prix d'achat"></ClearableInput>
                 </div>
                 <div class="form-group">
-                    <ClearableInput Label="Loyer"></ClearableInput>
+                    <ClearableInput Label="Loyer" Currency="€ / mois"></ClearableInput>
+                </div>
+                <div class="form-group">
+                    <div style="display: inline-block; width: 160px; margin-left: 39px;">
+                        <ClearableInput Label="Charges" Currency="€ / mois"></ClearableInput>
+                    </div>
+                    <label style="font-size: 12px;">Incluses</label>
+                    <ion-toggle />
+                </div>
+                <div class="form-group">
+                    <ClearableInput Label="Taxe foncière" Currency="€ / an"></ClearableInput>
+                </div>
+                <div class="form-group">
+                    <ClearableInput Label="Travaux estimés"></ClearableInput>
                 </div>
 
             </ion-content>
@@ -39,29 +53,122 @@
 
         <ion-slide>
             <ion-content>
-                <ion-title>Informations sur le bien</ion-title>
+                <ion-title><ion-icon name="wallet-outline"></ion-icon>Financement</ion-title>
                 <div class="form-group">
-                    <input class="form-control form-control-lg" type="text" placeholder="Nom">
+                    <ClearableInput Label="Durée du prêt" Currency="Année(s)"></ClearableInput>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control form-control-lg" id="exampleFormControlTextarea1" rows="5" placeholder="Adresse..."></textarea>
+                    <ClearableInput Label="Taux du prêt" Currency="%"></ClearableInput>
                 </div>
-
+                <div class="form-group">
+                    <ClearableInput Label="Taux d'assurance" Currency="%"></ClearableInput>
+                </div>
+                <div class="form-group">
+                    <ion-label>Frais de notaire de <strong>30 525€</strong> inclus</ion-label>
+                    <ion-toggle/>
+                </div>
+                <div class="form-group">
+                    <ion-label>Inclure les travaux</ion-label>
+                    <ion-toggle/>
+                </div>
+                <div class="form-group">
+                    <ion-label>Montant de l'emprunt : <strong>185 000 €</strong></ion-label>
+                </div>
+                <div class="form-group">
+                    <ion-label>Apport : <strong>18 500 €</strong></ion-label>
+                </div>
             </ion-content>
         </ion-slide>
     </ion-slides>
+    <ion-content>
+        <div class="container" style="margin-top: 20px; background: transparent">
+            <div class="row">
+                <div class="col-xs-6" style="text-align: center">
+                    <label>Cout total : 195 000 €</label>
+                </div>
+                <div class="col-xs-6" style="text-align: center">
+                    <label>Prix au m² : 1 152 €</label>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-xs-6 col-space">
+                    <div class="encare">
+                        <div style="margin: 5px;">
+                            <label>Revenu : 800 €</label>
+                            <label>Mensualités : 800 €</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-space">
+                    <div class="encare">
+                        <div style="margin: 5px;">
+                            <label>Gain mensuel : 800 €</label>
+                            <label>Rentabilité : 6,4 %</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Score></Score>
+    </ion-content>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button>
+            <ion-icon name="save-sharp"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
 
 <style>
     ion-slides {
         height: 100%;
     }
+
+    ion-slide  ion-title{
+        margin-top: 15px;
+        padding-bottom: 30px;
+    }
+
+    ion-slide > ion-content {
+        --background: linear-gradient(#F5F5F5, white);
+    }
+
+    ion-title ion-icon{
+        position: absolute;
+        top: 5px;
+        left: 5px;
+    }
+
+    ion-toggle {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        height: 20px;
+        width: 35px;
+        position: relative;
+        top: 5px;
+    }
+
+    .col-space {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .encare {
+        padding-top: 12px; 
+        border: lightgray solid 2px;
+        height: 80px;
+        width: 100%;
+        border-radius: 10px;
+        margin: 0;
+    }
+
+    .encare label{
+        display: block;
+        }
+
 </style>
 
 @code {
-
-
-    private string osef { get; set; }
 
     private void GoBack()
     {

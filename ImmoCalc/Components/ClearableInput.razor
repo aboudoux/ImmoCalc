@@ -1,16 +1,13 @@
 ﻿@inject IJSRuntime JsRuntime;
 
-    <div>
-        <div class="btn-group">
-            <input id="@InputId.ToString()" class="form-control form-control-lg" type="text" @bind-value="InputValue" @bind-value:event="oninput" />
-            <label>@Label</label>
+    <div class="btn-group">
+        <input id="@InputId.ToString()" class="form-control form-control-lg" type="text" @bind-value="InputValue" @bind-value:event="oninput" style="width: 100%; font-weight: bold;" />
+        <label>@Label - @Currency</label>
 
-            @if (!InputValue.IsEmpty()) {
-                <span id="searchclear" @onclick="@Clear" class="glyphicon glyphicon-remove-circle"></span>
-            }
-        </div>
+        @if (!InputValue.IsEmpty()) {
+            <span id="searchclear" @onclick="@Clear" class="glyphicon glyphicon-remove-circle"></span>
+        }
     </div>
-
 
     @code {
 
@@ -30,6 +27,9 @@
 
         [Parameter]
         public string Label { get; set; }
+
+        [Parameter]
+        public string Currency { get; set; } = "€";
 
         private string InputValue
         {
@@ -58,12 +58,14 @@
 
     <style>
         .btn-group > label {
-            top: -5px;
+            top: -7px;
             left: 8px;
             position: absolute;
             background-color: white;
             padding: 0px 2px 0px 2px;
-            font-size: 12px;
+            font-size: 13px;
+            border-radius: 10px;
+            font-weight: normal;
         }
 
         #searchclear {
