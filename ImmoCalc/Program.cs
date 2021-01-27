@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using BlazorState;
+using ImmoCalc.Infrastructures;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,18 +18,10 @@ namespace ImmoCalc {
 			await builder.Build().RunAsync();
 		}
 
-		public static void ConfigureServices(IServiceCollection aServiceCollection) {
+		public static void ConfigureServices(IServiceCollection serviceCollection) {
 
-			aServiceCollection.AddBlazorState
-			(
-				(aOptions) =>
-
-					aOptions.Assemblies =
-						new[]
-						{
-							typeof(Program).GetTypeInfo().Assembly,
-						}
-			);
+			serviceCollection.AddBlazorState(options => options.Assemblies = new[] { typeof(Program).GetTypeInfo().Assembly, });
+			serviceCollection.AddTransient<IProjectRepository, InMemoryProjectRepository>();
 		}
 	}
 }
