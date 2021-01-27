@@ -1,0 +1,37 @@
+﻿@using System.Globalization
+<path d="@SegmentPath(CenterX, CenterY, Radius, RadiusWidth, AngleStart, AngleEnd)" fill="red"></path>
+
+@code {
+
+    [Parameter] public int CenterX { get; set; }
+    [Parameter] public int CenterY { get; set; }
+    [Parameter] public int Radius { get; set; }
+    [Parameter] public int RadiusWidth { get; set; }
+    [Parameter] public int AngleStart { get; set; }
+    [Parameter] public int AngleEnd { get; set; }
+
+
+    string SegmentPath(int centerX, int centerY, int radius, int radiusWidth, int startAngle, int endAngle)
+    {
+        var arc = Math.Abs(startAngle - endAngle) > 180 ? 1 : 0;
+
+        return $"M{Point(radius, startAngle)}" +
+               $"A{radius},{radius},0,{arc},1,{Point(radius, endAngle)}" +
+               $"L{Point(radiusWidth, endAngle)}" +
+               $"A{radiusWidth},{radiusWidth},0,{arc},0,{Point(radiusWidth, startAngle)}";
+
+        string Point(int pointRadius, int degree)
+        {
+            return string.Join(",",
+                PolarToCartesian(centerX, centerY, pointRadius, degree)
+                    .Select(a => a.ToString("N5", CultureInfo.GetCultureInfo("en-US"))));
+        }
+
+        double[] PolarToCartesian(int x , int y , int r , int degrees )
+        {
+            var radians = degrees * Math.PI / 180.0;
+            return new[] {x + (r * Math.Cos(radians)), y + (r * Math.Sin(radians))};
+        }
+
+    }
+}
