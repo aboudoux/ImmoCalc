@@ -3,11 +3,11 @@ using TechTalk.SpecFlow;
 
 namespace ImmoCalc.Tests.Steps {
 	[Binding]
-	public sealed class ComputedDataSteps 
+	public sealed class CurrentProjectSteps 
 	{
-		private readonly ComputedDataContext _context;
+		private readonly IhmDataContext _context;
 		private const string Included = "included";
-		public ComputedDataSteps(ComputedDataContext context)
+		public CurrentProjectSteps(IhmDataContext context)
 		{
 			_context = context;
 		}
@@ -19,6 +19,7 @@ namespace ImmoCalc.Tests.Steps {
 		}
 
 		[When(@"I set the (.*) to (.*)")]
+		[Given(@"I set the (.*) to ""(.*)""")]
 		public void WhenISetTheBuyingPriceTo(string fieldName, double value)
 		{
 			_context.ChangeValue(fieldName, value);
@@ -33,7 +34,7 @@ namespace ImmoCalc.Tests.Steps {
 		[Given(@"the notary fees are (.*) in loan")]
 		public void GivenTheNotaryFeesAreIncludedInLoan(string isIncluded)
 		{
-			_context.State.NotaryFees.IncludedInLoanAmount(isIncluded == Included);
+			_context.CurrentProjectState.NotaryFees.IncludedInLoanAmount(isIncluded == Included);
 		}
 
 		[When(@"I set the notary fees (.*) in loan")]
@@ -45,7 +46,7 @@ namespace ImmoCalc.Tests.Steps {
 		[Given(@"the renovation is (.*) in loan")]
 		public void GivenTheRenovationAreIncludedInLoan(string isIncluded) 
 		{
-			_context.State.Renovation.IncludedInLoanAmount(isIncluded == Included);
+			_context.CurrentProjectState.Renovation.IncludedInLoanAmount(isIncluded == Included);
 		}
 
 		[When(@"I set the renovation (.*) in loan")]
@@ -57,7 +58,7 @@ namespace ImmoCalc.Tests.Steps {
 		[Given(@"the charges are (.*) in monthly rent")]
 		public void GivenTheChargesAreIncludedInMonthlyPayment(string isIncluded)
 		{
-			_context.State.Charges.IncludedInMonthlyRent(isIncluded == Included);
+			_context.CurrentProjectState.Charges.IncludedInMonthlyRent(isIncluded == Included);
 		}
 
 		[When(@"I set the charges (.*) in monthly rent")]

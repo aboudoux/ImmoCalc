@@ -8,7 +8,7 @@ namespace ImmoCalc.Infrastructures
 	{
 		public async Task<ProjectLabel[]> GetAllProjects()
 		{
-			await Task.Delay(3.Seconds());
+			await Task.Delay(1.Seconds());
 			return new[]
 			{
 				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),

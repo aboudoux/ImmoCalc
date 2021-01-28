@@ -7,17 +7,19 @@ using Xunit;
 
 namespace ImmoCalc.Tests
 {
-	public class InfosReducerShould
+	public class CurrentProjectReducerShould
 	{
 		private readonly CurrentProjectState _state;
 
 		private void ChangeValue<TValue>(TValue action) where TValue : IValue
 		{
-			var reducer = new CurrentProjectReducer(new TestStore(_state));
+			var store = new TestStore();
+			store.AddState(_state);
+			var reducer = new CurrentProjectReducer(store);
 			reducer.Handle(new CurrentProjectState.ChangeValue(action), CancellationToken.None);
 		}
 
-		public InfosReducerShould()
+		public CurrentProjectReducerShould()
 		{
 			_state = new CurrentProjectState();
 			_state.Initialize();

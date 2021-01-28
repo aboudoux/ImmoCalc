@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BlazorState;
 using ImmoCalc.Stores.CurrentProject;
 
@@ -6,17 +7,20 @@ namespace ImmoCalc.Tests.Tools
 {
 	public class TestStore : IStore
 	{
-		private readonly object _infoState;
+		private readonly Dictionary<Type, object> _states = new Dictionary<Type, object>();
 
-		public TestStore(CurrentProjectState currentProjectState)
+		public void AddState<TState>(TState state)
 		{
-			_infoState = currentProjectState ?? throw new ArgumentNullException(nameof(currentProjectState));
+			_states.Add(typeof(TState), state);
 		}
+
 		public TState GetState<TState>()
 		{
-			if(typeof(TState) !=  typeof(CurrentProjectState))
-				throw new Exception();
-			return (TState) _infoState;
+			var stateTye = typeof(TState);
+			if(!_states.ContainsKey(stateTye))
+				throw new Exception("state not found");
+
+			return (TState)_states[stateTye];
 		}
 
 		public object GetState(Type aType)

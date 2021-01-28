@@ -9,7 +9,7 @@ namespace ImmoCalc.Tests.Assets
 {
 	public static class ValueFactory
 	{
-		private static readonly Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<CurrentProjectState, IValue>> property) > Builders = new Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<CurrentProjectState, IValue>> property)>()
+		private static readonly Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<CurrentProjectState, IValue>> property)> Builders = new Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<CurrentProjectState, IValue>> property)>()
 		{
 			{"buying price", (BuyingPrice.From, a=>a.BuyingPrice )},
 			{"monthly rent", (MonthlyRent.From,a=>a.MonthlyRent)},
