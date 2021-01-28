@@ -1,6 +1,6 @@
 using System;
 using ImmoCalc.Domain;
-using ImmoCalc.Stores.Infos;
+using ImmoCalc.Stores.CurrentProject;
 using MediatR;
 
 namespace ImmoCalc.Components.Converters
@@ -18,7 +18,7 @@ namespace ImmoCalc.Components.Converters
 		public T Value
 		{
 			get => _retrieveFunc();
-			set => _mediator.Send(new InfosState.ChangeValue(value));
+			set => _mediator.Send(new CurrentProjectState.ChangeValue(value));
 		}
 	}
 }

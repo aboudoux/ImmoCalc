@@ -4,20 +4,20 @@ using BlazorState;
 using ImmoCalc.Domain;
 using MediatR;
 
-namespace ImmoCalc.Stores.Infos
+namespace ImmoCalc.Stores.CurrentProject
 {
-	public class InfosReducer : ActionHandler<InfosState.ChangeValue>, 
-		IRequestHandler<InfosState.IncludeChargesInMonthlyRent>,
-		IRequestHandler<InfosState.IncludeNotaryFeesInLoadAmount>,
-		IRequestHandler<InfosState.IncludeRenovationInLoadAmount>
+	public class CurrentProjectReducer : ActionHandler<CurrentProjectState.ChangeValue>, 
+		IRequestHandler<CurrentProjectState.IncludeChargesInMonthlyRent>,
+		IRequestHandler<CurrentProjectState.IncludeNotaryFeesInLoadAmount>,
+		IRequestHandler<CurrentProjectState.IncludeRenovationInLoadAmount>
 	{
-		private InfosState State => Store.GetState<InfosState>();
+		private CurrentProjectState State => Store.GetState<CurrentProjectState>();
 
-		public InfosReducer(IStore store) : base(store)
+		public CurrentProjectReducer(IStore store) : base(store)
 		{
 		}
 
-		public override Task<Unit> Handle(InfosState.ChangeValue action, CancellationToken cancellationToken) {
+		public override Task<Unit> Handle(CurrentProjectState.ChangeValue action, CancellationToken cancellationToken) {
 			switch (action.Value) {
 				case BuyingPrice v: State.BuyingPrice = v; break;
 				case MonthlyRent v: State.MonthlyRent = v; break;
@@ -33,21 +33,21 @@ namespace ImmoCalc.Stores.Infos
 			return Unit.Task;
 		}
 
-		public Task<Unit> Handle(InfosState.IncludeChargesInMonthlyRent action, CancellationToken cancellationToken)
+		public Task<Unit> Handle(CurrentProjectState.IncludeChargesInMonthlyRent action, CancellationToken cancellationToken)
 		{
 			State.Charges.IncludedInMonthlyRent(action.Include);
 			State.Compute();
 			return Unit.Task;
 		}
 
-		public Task<Unit> Handle(InfosState.IncludeNotaryFeesInLoadAmount action, CancellationToken cancellationToken)
+		public Task<Unit> Handle(CurrentProjectState.IncludeNotaryFeesInLoadAmount action, CancellationToken cancellationToken)
 		{
 			State.NotaryFees.IncludedInLoanAmount(action.Include);
 			State.Compute();
 			return Unit.Task;
 		}
 
-		public Task<Unit> Handle(InfosState.IncludeRenovationInLoadAmount action, CancellationToken cancellationToken)
+		public Task<Unit> Handle(CurrentProjectState.IncludeRenovationInLoadAmount action, CancellationToken cancellationToken)
 		{
 			State.Renovation.IncludedInLoanAmount(action.Include);
 			State.Compute();

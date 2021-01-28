@@ -2,9 +2,9 @@
 using BlazorState;
 using ImmoCalc.Infrastructures;
 
-namespace ImmoCalc.Stores.Projects
+namespace ImmoCalc.Stores.ProjectList
 {
-	public class ProjectsState : State<ProjectsState>
+	public class ProjectListState : State<ProjectListState>
 	{
 		public ProjectLabel[] ProjectList { get; set; }
 		public bool ProjectListLoading { get; set; }

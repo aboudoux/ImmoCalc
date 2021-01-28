@@ -1,7 +1,7 @@
 using System.Threading;
 using FluentAssertions;
 using ImmoCalc.Domain;
-using ImmoCalc.Stores.Infos;
+using ImmoCalc.Stores.CurrentProject;
 using ImmoCalc.Tests.Tools;
 using Xunit;
 
@@ -9,17 +9,17 @@ namespace ImmoCalc.Tests
 {
 	public class InfosReducerShould
 	{
-		private readonly InfosState _state;
+		private readonly CurrentProjectState _state;
 
 		private void ChangeValue<TValue>(TValue action) where TValue : IValue
 		{
-			var reducer = new InfosReducer(new TestStore(_state));
-			reducer.Handle(new InfosState.ChangeValue(action), CancellationToken.None);
+			var reducer = new CurrentProjectReducer(new TestStore(_state));
+			reducer.Handle(new CurrentProjectState.ChangeValue(action), CancellationToken.None);
 		}
 
 		public InfosReducerShould()
 		{
-			_state = new InfosState();
+			_state = new CurrentProjectState();
 			_state.Initialize();
 		}
 

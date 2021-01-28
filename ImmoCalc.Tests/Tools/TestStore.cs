@@ -1,6 +1,6 @@
 using System;
 using BlazorState;
-using ImmoCalc.Stores.Infos;
+using ImmoCalc.Stores.CurrentProject;
 
 namespace ImmoCalc.Tests.Tools
 {
@@ -8,13 +8,13 @@ namespace ImmoCalc.Tests.Tools
 	{
 		private readonly object _infoState;
 
-		public TestStore(InfosState infoState)
+		public TestStore(CurrentProjectState currentProjectState)
 		{
-			_infoState = infoState ?? throw new ArgumentNullException(nameof(infoState));
+			_infoState = currentProjectState ?? throw new ArgumentNullException(nameof(currentProjectState));
 		}
 		public TState GetState<TState>()
 		{
-			if(typeof(TState) !=  typeof(InfosState))
+			if(typeof(TState) !=  typeof(CurrentProjectState))
 				throw new Exception();
 			return (TState) _infoState;
 		}

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using ImmoCalc.Domain;
-using ImmoCalc.Stores.Infos;
+using ImmoCalc.Stores.CurrentProject;
 using TypeSupport.Extensions;
 
 namespace ImmoCalc.Tests.Assets
 {
 	public static class ValueFactory
 	{
-		private static readonly Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<InfosState, IValue>> property) > Builders = new Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<InfosState, IValue>> property)>()
+		private static readonly Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<CurrentProjectState, IValue>> property) > Builders = new Dictionary<string, (Func<double, IValue> valueMaker, Expression<Func<CurrentProjectState, IValue>> property)>()
 		{
 			{"buying price", (BuyingPrice.From, a=>a.BuyingPrice )},
 			{"monthly rent", (MonthlyRent.From,a=>a.MonthlyRent)},
@@ -36,18 +36,18 @@ namespace ImmoCalc.Tests.Assets
 
 		public static IValue Get(string fieldName, double value) => Builders[fieldName].valueMaker(value);
 
-		public static void SetState(InfosState state, string fieldName, double value)
+		public static void SetState(CurrentProjectState state, string fieldName, double value)
 		{
 			var name = GetExpressionName(Builders[fieldName].property);
 			state.SetPropertyValue(name, Builders[fieldName].valueMaker(value));
 		}
 
-		public static IValue GetState(InfosState state, string fieldName)
+		public static IValue GetState(CurrentProjectState state, string fieldName)
 		{
 			return state.GetPropertyValue(GetExpressionName(Builders[fieldName].property)) as IValue;
 		}
 
-		private static string GetExpressionName(Expression<Func<InfosState, IValue>> expression)
+		private static string GetExpressionName(Expression<Func<CurrentProjectState, IValue>> expression)
 		{
 			var ex = (MemberExpression) expression.Body;
 			return ex.Member.Name;

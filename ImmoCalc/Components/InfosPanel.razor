@@ -2,7 +2,7 @@
 @using System.Data.Common
 @using ImmoCalc.Components.Converters
 @using ImmoCalc.Domain
-@using ImmoCalc.Stores.Infos
+@using ImmoCalc.Stores.CurrentProject
 @using MediatR
 
 <div class="card">
@@ -113,7 +113,7 @@
 
 @code {
 
-    private InfosState MyStore => Store.GetState<InfosState>();
+    private CurrentProjectState MyStore => Store.GetState<CurrentProjectState>();
 
     private AmountProperty<BuyingPrice> _buyingPrice;
     private AmountProperty<MonthlyRent> _monthlyRent;
@@ -127,13 +127,13 @@
     private RatioProperty<InsuranceRate> _insuranceRate;
 
     private bool IncludedCharges => MyStore.Charges.IsIncludedInMonthlyRent;
-    private void OnIncludedChargesChange(bool value) => Mediator.Send(new InfosState.IncludeChargesInMonthlyRent(value));
+    private void OnIncludedChargesChange(bool value) => Mediator.Send(new CurrentProjectState.IncludeChargesInMonthlyRent(value));
 
     private bool IncludedNotaryFees => MyStore.NotaryFees.IsIncludedInLoadAmount;
-    private void OnIncludedNotaryFeesChange(bool value) => Mediator.Send(new InfosState.IncludeNotaryFeesInLoadAmount(value));
+    private void OnIncludedNotaryFeesChange(bool value) => Mediator.Send(new CurrentProjectState.IncludeNotaryFeesInLoadAmount(value));
 
     private bool IncludedRenovation => MyStore.Renovation.IsIncludedInLoadAmount;
-    private void OnIncludedRenovatioChange(bool value) => Mediator.Send(new InfosState.IncludeRenovationInLoadAmount(value));
+    private void OnIncludedRenovatioChange(bool value) => Mediator.Send(new CurrentProjectState.IncludeRenovationInLoadAmount(value));
 
     protected override void OnInitialized()
 {

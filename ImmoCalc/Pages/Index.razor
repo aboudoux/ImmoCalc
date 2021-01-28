@@ -1,5 +1,6 @@
 ﻿@page "/"
-@using ImmoCalc.Stores.Projects
+@using ImmoCalc.Stores.ProjectList
+@using ImmoCalc.Stores.CurrentProject
 @inherits BlazorState.BlazorStateComponent
 @inject NavigationManager Navigation;
 
@@ -15,9 +16,8 @@
         <ion-list>
             @for (int i = 0; i < 10; i++) {
                 <ion-item-sliding>
-                    <ion-item detail button @onclick="@Clicked">
-                        @*<ion-icon slot="start" name="home-outline"></ion-icon>*@
-                        <ion-thumbnail slot="start">
+                    <ion-item detail button>
+                        <ion-thumbnail slot="start" style="width: 32px; height: 32px;">
                             <ion-skeleton-text animated></ion-skeleton-text>
                         </ion-thumbnail>
                         <ion-label>
@@ -38,7 +38,7 @@
         <ion-list>
             @foreach (var project in State.ProjectList) {
                 <ion-item-sliding>
-                    <ion-item detail button @onclick="@Clicked">
+                    <ion-item detail button @onclick="@(() => ListItemClicked(project.Id))">
                         <ion-icon slot="start" name="home-outline"></ion-icon>
                         <ion-label>
                             <h2>@project.Label</h2>
@@ -55,7 +55,7 @@
     }
 
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-        <ion-fab-button @onclick="@Load">
+        <ion-fab-button @onclick="@CreateNewItemClicked">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
@@ -63,29 +63,35 @@
 
 @code
 {
-    private ProjectsState State => Store.GetState<ProjectsState>();
+    private ProjectListState State => Store.GetState<ProjectListState>();
 
-    private void Clicked() {
+    private async Task ListItemClicked(Guid projectId) {
         Navigation.NavigateTo("simulator");
+        await Mediator.Send(new CurrentProjectState.Load(projectId));
+    }
+
+    private void CreateNewItemClicked()
+    {
+
     }
 
     protected override void OnInitialized()
     {
-        Subscriptions.Add<ProjectsState>(this);
+        Subscriptions.Add<ProjectListState>(this);
         base.OnInitialized();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
-            await Mediator.Send(new ProjectsState.LoadProjectList(true));
+            await Mediator.Send(new ProjectListState.LoadProjectList(true));
 
         await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task Load()
     {
-        await Mediator.Send(new ProjectsState.LoadProjectList());
+        await Mediator.Send(new ProjectListState.LoadProjectList());
     }
 }
 

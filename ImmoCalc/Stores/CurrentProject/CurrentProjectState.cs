@@ -1,8 +1,9 @@
-﻿using BlazorState;
+﻿using System;
+using BlazorState;
 using ImmoCalc.Domain;
 
-namespace ImmoCalc.Stores.Infos {
-	public class InfosState : State<InfosState>
+namespace ImmoCalc.Stores.CurrentProject {
+	public class CurrentProjectState : State<CurrentProjectState>
 	{
 		public BuyingPrice BuyingPrice { get; set; }
 		public MonthlyRent MonthlyRent { get; set; }
@@ -110,6 +111,16 @@ namespace ImmoCalc.Stores.Infos {
 
 		public class IncludeNotaryFeesInLoadAmount : IncludeAction {
 			public IncludeNotaryFeesInLoadAmount(bool include) : base(include) { }
+		}
+
+		public class Load : IAction
+		{
+			public Guid ProjectId { get; }
+
+			public Load(Guid projectId)
+			{
+				ProjectId = projectId;
+			}
 		}
 	}
 }
