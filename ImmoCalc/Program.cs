@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
+using BlazorAnimation;
 using BlazorState;
 using ImmoCalc.Infrastructures;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -13,6 +14,7 @@ namespace ImmoCalc {
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("ion-app");
 
+			builder.Services.Configure<AnimationOptions>(Guid.NewGuid().ToString(), c => { });
 			builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 			ConfigureServices(builder.Services);
 			await builder.Build().RunAsync();

@@ -1,0 +1,40 @@
+﻿@inject IJSRuntime JsRuntime
+
+<ion-refresher @ref="_refresher" slot="fixed">
+    <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+    </ion-refresher-content>
+</ion-refresher>
+
+@code {
+
+    private ElementReference _refresher;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender)
+        {
+            var dotNetReference = DotNetObjectReference.Create(this);
+            JsRuntime.InvokeVoidAsync("RefresherComponent.refresh", _refresher, dotNetReference);
+        }
+        base.OnAfterRender(firstRender);
+    }
+
+    [JSInvokable("OnRefresh")]
+    public async Task Refresh()
+    {
+        await _onRefresh.InvokeAsync(this);
+        await JsRuntime.InvokeVoidAsync("RefresherComponent.complete", _refresher);
+    }
+
+    private EventCallback _onRefresh;
+
+    [Parameter]
+    public EventCallback OnRefresh
+    {
+        set => _onRefresh = value;
+    }
+}

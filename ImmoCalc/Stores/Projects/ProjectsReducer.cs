@@ -20,7 +20,9 @@ namespace ImmoCalc.Stores.Projects {
 
 		public override async Task<Unit> Handle(ProjectsState.LoadProjectList action, CancellationToken cancellationToken)
 		{
-			await _mediator.Send(new ProjectsState.LoadingProjectList(), cancellationToken);
+			if(action.FromStartup)
+				await _mediator.Send(new ProjectsState.LoadingProjectList(), cancellationToken);
+
 			var projectsList = await _projectRepository.GetAllProjects();
 			State.ProjectListLoading = false;
 			State.ProjectList = projectsList;

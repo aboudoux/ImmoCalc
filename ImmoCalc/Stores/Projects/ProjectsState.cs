@@ -17,6 +17,12 @@ namespace ImmoCalc.Stores.Projects
 
 		public class LoadProjectList : IAction
 		{
+			public bool FromStartup { get; }
+
+			public LoadProjectList(bool fromStartup = false)
+			{
+				FromStartup = fromStartup;
+			}
 		}
 
 		public class LoadingProjectList : IAction
