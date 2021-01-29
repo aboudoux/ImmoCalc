@@ -5,7 +5,7 @@ using ImmoCalc.Shared;
 namespace ImmoCalc.Components.Converters
 {
 	public class RatioConverter<T> : IValueConverter
-		where T : class, IValue 
+		where T : class, IValue<double> 
 	{
 		private readonly Func<double, T> _factory;
 

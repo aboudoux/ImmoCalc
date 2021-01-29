@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ImmoCalc.Domain;
 
 namespace ImmoCalc.Infrastructures 
 {
@@ -7,6 +8,8 @@ namespace ImmoCalc.Infrastructures
 	{
 		Task<ProjectLabel[]> GetAllProjects();
 
-		Task<FullProject> LoadProject(Guid projectId);
+		Task<Project> LoadProject(Guid projectId);
+
+		Task SaveProject(Project project);
 	}
 }

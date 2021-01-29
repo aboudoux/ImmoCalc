@@ -3,11 +3,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using BlazorState;
 using ImmoCalc.Infrastructures;
+using ImmoCalc.Stores.CurrentProject;
 using MediatR;
 
 namespace ImmoCalc.Stores.ProjectList {
 	public class ProjectListReducer : ActionHandler<ProjectListState.LoadProjectList>,
-		IRequestHandler<ProjectListState.LoadingProjectList>
+		IRequestHandler<ProjectListState.LoadingProjectList>,
+		IRequestHandler<CurrentProjectState.Save>
 	{
 		private readonly IProjectRepository _projectRepository;
 		private readonly IMediator _mediator;
@@ -33,6 +35,12 @@ namespace ImmoCalc.Stores.ProjectList {
 		{
 			State.ProjectListLoading = true;
 			return Unit.Task;
+		}
+
+		public async Task<Unit> Handle(CurrentProjectState.Save request, CancellationToken cancellationToken)
+		{
+			await _projectRepository.SaveProject(request.Project);
+			return Unit.Value;
 		}
 	}
 }

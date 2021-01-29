@@ -1,54 +1,32 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using ImmoCalc.Domain.Extensions;
+using ImmoCalc.Domain;
 
 namespace ImmoCalc.Infrastructures
 {
 	public class InMemoryProjectRepository : IProjectRepository
 	{
-		public async Task<ProjectLabel[]> GetAllProjects()
+		private readonly List<Project> _projects = new List<Project>();
+
+		public Task<ProjectLabel[]> GetAllProjects()
 		{
-			await Task.Delay(1.Seconds());
-			return new[]
-			{
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-				new ProjectLabel(Guid.NewGuid(), "Gorges de loup","22 rue de la fraternelle, 69009 LYON"),
-				new ProjectLabel(Guid.NewGuid(), "Saint etienne","155b avenue antoine durafour, 42100 saint etienne"),
-			};
+			return Task.FromResult(
+				_projects.Select(a =>
+						new ProjectLabel(Guid.Empty, a.Name.Value, a.Address.Value))
+					.ToArray());
 		}
 
-		public Task<FullProject> LoadProject(Guid projectId)
+		public Task<Project> LoadProject(Guid projectId)
 		{
-			throw new NotImplementedException();
+			return Task.FromResult(_projects.First());
+		}
+
+		public Task SaveProject(Project project)
+		{
+			_projects.Add(project);
+			return Task.CompletedTask;
 		}
 	}
 }

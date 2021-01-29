@@ -60,7 +60,7 @@
                 <DataInput Row="1" Label="Durée du prêt" Currency="ans" @bind-Value="@_loanDuration.Value" Converter="@_loanDuration.Converter" ShowCents="@false" />
                 <DataInput Row="2" Label="Taux du prêt" Currency="%" @bind-Value="@_loanRate.Value" Converter="@_loanRate.Converter" />
                 <DataInput Row="3" Label="Taux assurance" Currency="%" @bind-Value="@_insuranceRate.Value" Converter="@_insuranceRate.Converter" />
-                <DataOutput Row="4" Label="Frais de notaire" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.NotaryFees))">
+                <DataOutput Row="4" Label="Frais de notaire" Currency="€" Value="@((string) _amountToStringConverter.Convert(State.Project.NotaryFees))">
                     <AfterLabel>
                         <div class="row">
                             <label>inclus</label>
@@ -74,8 +74,8 @@
                 <GridElement Row="5" Column="2" HorizontalAlignment="@Alignment.Start" VerticalAlignment="@Alignment.Center">
                     @*<Switch Checked="IncludedRenovation" OnChange="OnIncludedRenovatioChange" />*@
                 </GridElement>
-                <DataOutput Row="6" Label="Montant de l'emprunt" Currency="€" Value="@((string)_amountToStringConverter.Convert(MyStore.LoanAmount) )"/>
-                <DataOutput Row="7" Label="Apport" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.Contribution))" />
+                <DataOutput Row="6" Label="Montant de l'emprunt" Currency="€" Value="@((string)_amountToStringConverter.Convert(State.Project.LoanAmount) )"/>
+                <DataOutput Row="7" Label="Apport" Currency="€" Value="@((string) _amountToStringConverter.Convert(State.Project.Contribution))" />
 
             </Content>
         </Grid>
@@ -98,13 +98,13 @@
         </RowDefinitions>
         <Content>
            
-            <DataOutput Row="1" Label="Cout total" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.PropertyTotalCost))" />
-            <DataOutput Row="2" Label="Prix au m2" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.SquareMeterPrice))" />
-            <DataOutput Row="3" Label="Revenu" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.MonthlyIncome))" />
-            <DataOutput Row="4" Label="Mensualité" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.TotalMonthlyPayment))" />
-            <DataOutput Row="5" Label="Gain mensuel" Currency="€" Value="@((string) _amountToStringConverter.Convert(MyStore.MonthlyGain))" />
-            <DataOutput Row="6" Label="Rentabilite" Currency="%" Value="@((string) _ratioToStringConverter.Convert(MyStore.Profitability))" />
-            <DataOutput Row="7" Label="Score" Currency="/10" Value="@((string) _amountToStringConverter.Convert(MyStore.Score))" />
+            <DataOutput Row="1" Label="Cout total" Currency="€" Value="@((string) _amountToStringConverter.Convert(State.Project.PropertyTotalCost))" />
+            <DataOutput Row="2" Label="Prix au m2" Currency="€" Value="@((string) _amountToStringConverter.Convert(State.Project.SquareMeterPrice))" />
+            <DataOutput Row="3" Label="Revenu" Currency="€" Value="@((string) _amountToStringConverter.Convert(State.Project.MonthlyIncome))" />
+            <DataOutput Row="4" Label="Mensualité" Currency="€" Value="@((string) _amountToStringConverter.Convert(State.Project.TotalMonthlyPayment))" />
+            <DataOutput Row="5" Label="Gain mensuel" Currency="€" Value="@((string) _amountToStringConverter.Convert(State.Project.MonthlyGain))" />
+            <DataOutput Row="6" Label="Rentabilite" Currency="%" Value="@((string) _ratioToStringConverter.Convert(State.Project.Profitability))" />
+            <DataOutput Row="7" Label="Score" Currency="/10" Value="@((string) _amountToStringConverter.Convert(State.Project.Score))" />
 
         </Content>
     </Grid>
@@ -113,7 +113,7 @@
 
 @code {
 
-    private CurrentProjectState MyStore => Store.GetState<CurrentProjectState>();
+    private CurrentProjectState State => Store.GetState<CurrentProjectState>();
 
     private AmountProperty<BuyingPrice> _buyingPrice;
     private AmountProperty<MonthlyRent> _monthlyRent;
@@ -126,27 +126,27 @@
     private RatioProperty<LoanRate> _loanRate;
     private RatioProperty<InsuranceRate> _insuranceRate;
 
-    private bool IncludedCharges => MyStore.Charges.IsIncludedInMonthlyRent;
+    private bool IncludedCharges => State.Project.Charges.IsIncludedInMonthlyRent;
     private void OnIncludedChargesChange(bool value) => Mediator.Send(new CurrentProjectState.IncludeChargesInMonthlyRent(value));
 
-    private bool IncludedNotaryFees => MyStore.NotaryFees.IsIncludedInLoadAmount;
+    private bool IncludedNotaryFees => State.Project.NotaryFees.IsIncludedInLoadAmount;
     private void OnIncludedNotaryFeesChange(bool value) => Mediator.Send(new CurrentProjectState.IncludeNotaryFeesInLoadAmount(value));
 
-    private bool IncludedRenovation => MyStore.Renovation.IsIncludedInLoadAmount;
+    private bool IncludedRenovation => State.Project.Renovation.IsIncludedInLoadAmount;
     private void OnIncludedRenovatioChange(bool value) => Mediator.Send(new CurrentProjectState.IncludeRenovationInLoadAmount(value));
 
     protected override void OnInitialized()
 {
-        _buyingPrice = new AmountProperty<BuyingPrice>(Mediator, BuyingPrice.From, ()=> MyStore.BuyingPrice);
-        _monthlyRent = new AmountProperty<MonthlyRent>(Mediator, MonthlyRent.From, () => MyStore.MonthlyRent);
-        _charges = new AmountProperty<Charges>(Mediator, Charges.From, () => MyStore.Charges);
-        _surface = new AmountProperty<Surface>(Mediator, Surface.From, () => MyStore.Surface);
-        _propertyTax = new AmountProperty<PropertyTax>(Mediator, PropertyTax.From, () => MyStore.PropertyTax);
-        _renovation = new AmountProperty<Renovation>(Mediator, Renovation.From, () => MyStore.Renovation);
+        _buyingPrice = new AmountProperty<BuyingPrice>(Mediator, BuyingPrice.From, ()=> State.Project.BuyingPrice);
+        _monthlyRent = new AmountProperty<MonthlyRent>(Mediator, MonthlyRent.From, () => State.Project.MonthlyRent);
+        _charges = new AmountProperty<Charges>(Mediator, Charges.From, () => State.Project.Charges);
+        _surface = new AmountProperty<Surface>(Mediator, Surface.From, () => State.Project.Surface);
+        _propertyTax = new AmountProperty<PropertyTax>(Mediator, PropertyTax.From, () => State.Project.PropertyTax);
+        _renovation = new AmountProperty<Renovation>(Mediator, Renovation.From, () => State.Project.Renovation);
 
-        _loanDuration = new AmountProperty<LoanDuration>(Mediator,a=> LoanDuration.From((int)a), () => MyStore.LoanDuration);
-        _loanRate = new RatioProperty<LoanRate>(Mediator, LoanRate.From, ()=>MyStore.LoanRate);
-        _insuranceRate = new RatioProperty<InsuranceRate>(Mediator, InsuranceRate.From, ()=>MyStore.InsuranceRate);
+        _loanDuration = new AmountProperty<LoanDuration>(Mediator,a=> LoanDuration.From((int)a), () => State.Project.LoanDuration);
+        _loanRate = new RatioProperty<LoanRate>(Mediator, LoanRate.From, ()=>State.Project.LoanRate);
+        _insuranceRate = new RatioProperty<InsuranceRate>(Mediator, InsuranceRate.From, ()=>State.Project.InsuranceRate);
     }
 
 

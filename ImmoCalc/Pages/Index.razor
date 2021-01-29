@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using ImmoCalc.Stores.ProjectList
 @using ImmoCalc.Stores.CurrentProject
+@using ImmoCalc.Domain
 @inherits BlazorState.BlazorStateComponent
 @inject NavigationManager Navigation;
 
@@ -67,7 +68,7 @@
 
     private async Task ListItemClicked(Guid projectId) {
         Navigation.NavigateTo("simulator");
-        await Mediator.Send(new CurrentProjectState.Load(projectId));
+        await Mediator.Send(new CurrentProjectState.Load(ProjectId.From(projectId)));
     }
 
     private void CreateNewItemClicked()

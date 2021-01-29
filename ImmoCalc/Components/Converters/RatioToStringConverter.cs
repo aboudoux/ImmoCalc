@@ -8,7 +8,7 @@ namespace ImmoCalc.Components.Converters
 	{
 		public object Convert(object value)
 		{
-			var ratio = value as IValue;
+			var ratio = value as IValue<double>;
 			return ratio.Value == 0
 				? string.Empty
 				: Display.AsDecimal((ratio.Value * 100).ToString()).ToString(2);

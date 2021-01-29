@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace ImmoCalc.Domain
 {
-	public class EmptyValue<T> : IValue
+	public class EmptyValue<T> : IValue<double>
 		where T : class
 	{
 		public static T Empty => Activator.CreateInstance(typeof(T),

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace ImmoCalc.Components.Converters
 {
-	public abstract class EditableProperty<T> where T : class, IValue {
+	public abstract class EditableProperty<T> where T : class, IValueObject {
 		private readonly IMediator _mediator;
 		private readonly Func<T> _retrieveFunc;
 

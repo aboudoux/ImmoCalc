@@ -5,7 +5,7 @@ using MediatR;
 namespace ImmoCalc.Components.Converters
 {
 	public class RatioProperty<T> : EditableProperty<T>
-		where T : class, IValue {
+		where T : class, IValue<double> {
 		public RatioConverter<T> Converter { get; }
 
 		public RatioProperty(IMediator mediator, Func<double, T> factory, Func<T> retrieveFunc)
