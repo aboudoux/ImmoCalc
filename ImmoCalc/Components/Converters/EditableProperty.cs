@@ -5,11 +5,11 @@ using MediatR;
 
 namespace ImmoCalc.Components.Converters
 {
-	public abstract class EditableProperty<T> where T : class, IValueObject {
+	public abstract class EditableProperty<T,U> where T : class, IValueObject {
 		private readonly IMediator _mediator;
 		private readonly Func<T> _retrieveFunc;
 
-		protected EditableProperty(IMediator mediator, Func<double, T> factory, Func<T> retrieveFunc) {
+		protected EditableProperty(IMediator mediator, Func<U, T> factory, Func<T> retrieveFunc) {
 			if (factory == null) throw new ArgumentNullException(nameof(factory));
 			_mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 			_retrieveFunc = retrieveFunc;

@@ -8,32 +8,37 @@ namespace ImmoCalc.Infrastructures
 {
 	public class InMemoryProjectRepository : IProjectRepository
 	{
-		private readonly List<Project> _projects = new List<Project>();
-
+		private readonly Dictionary<Guid, Project> _projects = new Dictionary<Guid, Project>();
+		
 		public Task<ProjectLabel[]> GetAllProjects()
 		{
 			return Task.FromResult(
-				_projects.Select(a =>
+				_projects.Values.Select(a =>
 						new ProjectLabel(a.ProjectId.Value, a.Name.Value, a.Address.Value))
 					.ToArray());
 		}
 
 		public Task<Project> LoadProject(Guid projectId)
 		{
-			return Task.FromResult(_projects.First());
+			if(!_projects.ContainsKey(projectId))
+				throw new Exception("project not found");
+			return Task.FromResult(_projects[projectId]);
 		}
 
 		public Task SaveProject(Project project)
 		{
-			_projects.Add(project);
+			if(!_projects.ContainsKey(project.ProjectId.Value))
+				_projects.Add(project.ProjectId.Value, project);
+			else
+				_projects[project.ProjectId.Value] = project;
+			
 			return Task.CompletedTask;
 		}
 
 		public Task Remove(ProjectId id)
 		{
-			var projectToRemove = _projects.FirstOrDefault(a => a.ProjectId.Value == id.Value);
-			if (projectToRemove != null)
-				_projects.Remove(projectToRemove);
+			if (_projects.ContainsKey(id.Value))
+				_projects.Remove(id.Value);
 			return Task.CompletedTask;
 		}
 	}

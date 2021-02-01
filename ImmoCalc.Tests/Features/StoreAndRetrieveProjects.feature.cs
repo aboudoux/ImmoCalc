@@ -143,14 +143,14 @@ this.ScenarioInitialize(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Create e new project")]
+        [Xunit.SkippableFactAttribute(DisplayName="Create a new project")]
         [Xunit.TraitAttribute("FeatureTitle", "StoreAndRetrieveProjects")]
-        [Xunit.TraitAttribute("Description", "Create e new project")]
-        public virtual void CreateENewProject()
+        [Xunit.TraitAttribute("Description", "Create a new project")]
+        public virtual void CreateANewProject()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create e new project", null, tagsOfScenario, argumentsOfScenario);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new project", null, tagsOfScenario, argumentsOfScenario);
 #line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -202,7 +202,7 @@ testRunner.And("I save the project", ((string)(null)), ((TechTalk.SpecFlow.Table
 testRunner.When("I want to see the stored project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Address",
+                            "Name",
                             "Address"});
                 table4.AddRow(new string[] {
                             "Appart 1",
@@ -215,6 +215,198 @@ testRunner.When("I want to see the stored project", ((string)(null)), ((TechTalk
                             "10 rue du test"});
 #line 28
 testRunner.Then("the stored projects list is", ((string)(null)), table4, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Load a project")]
+        [Xunit.TraitAttribute("FeatureTitle", "StoreAndRetrieveProjects")]
+        [Xunit.TraitAttribute("Description", "Load a project")]
+        public virtual void LoadAProject()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Load a project", null, tagsOfScenario, argumentsOfScenario);
+#line 34
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "Name",
+                            "Address"});
+                table5.AddRow(new string[] {
+                            "1",
+                            "Appart 1",
+                            "1 avenue de mars, 69001 lyon"});
+                table5.AddRow(new string[] {
+                            "2",
+                            "Appart 2",
+                            "2 impasse dufour, 69002 lyon"});
+#line 35
+testRunner.Given("some projects stored in a database", ((string)(null)), table5, "Given ");
+#line hidden
+#line 39
+testRunner.When("I load the project 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 40
+testRunner.Then("the name value is \"Appart 2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 41
+testRunner.And("the address value is \"2 impasse dufour, 69002 lyon\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Update an existing project")]
+        [Xunit.TraitAttribute("FeatureTitle", "StoreAndRetrieveProjects")]
+        [Xunit.TraitAttribute("Description", "Update an existing project")]
+        public virtual void UpdateAnExistingProject()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update an existing project", null, tagsOfScenario, argumentsOfScenario);
+#line 43
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "Name",
+                            "Address"});
+                table6.AddRow(new string[] {
+                            "1",
+                            "Appart 1",
+                            "1 avenue de mars, 69001 lyon"});
+                table6.AddRow(new string[] {
+                            "2",
+                            "Appart 2",
+                            "2 impasse dufour, 69002 lyon"});
+#line 44
+testRunner.Given("some projects stored in a database", ((string)(null)), table6, "Given ");
+#line hidden
+#line 48
+testRunner.And("I load the project 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 49
+testRunner.And("I set the name to \"APPART TEST\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 50
+testRunner.And("I set the address to \"10 rue du test\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 51
+testRunner.When("I save the project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 52
+testRunner.And("I want to see the stored project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Address"});
+                table7.AddRow(new string[] {
+                            "Appart 1",
+                            "1 avenue de mars, 69001 lyon"});
+                table7.AddRow(new string[] {
+                            "APPART TEST",
+                            "10 rue du test"});
+#line 53
+testRunner.Then("the stored projects list is", ((string)(null)), table7, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Remove a project")]
+        [Xunit.TraitAttribute("FeatureTitle", "StoreAndRetrieveProjects")]
+        [Xunit.TraitAttribute("Description", "Remove a project")]
+        public virtual void RemoveAProject()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove a project", null, tagsOfScenario, argumentsOfScenario);
+#line 58
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "Name",
+                            "Address"});
+                table8.AddRow(new string[] {
+                            "1",
+                            "Appart 1",
+                            "1 avenue de mars, 69001 lyon"});
+                table8.AddRow(new string[] {
+                            "2",
+                            "Appart 2",
+                            "2 impasse dufour, 69002 lyon"});
+#line 59
+testRunner.Given("some projects stored in a database", ((string)(null)), table8, "Given ");
+#line hidden
+#line 63
+testRunner.And("I want to see the stored project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 64
+testRunner.When("I remove the project 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Name",
+                            "Address"});
+                table9.AddRow(new string[] {
+                            "Appart 2",
+                            "2 impasse dufour, 69002 lyon"});
+#line 65
+testRunner.Then("the stored projects list is", ((string)(null)), table9, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

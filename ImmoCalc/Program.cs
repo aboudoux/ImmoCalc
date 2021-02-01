@@ -23,7 +23,7 @@ namespace ImmoCalc {
 		public static void ConfigureServices(IServiceCollection serviceCollection) {
 
 			serviceCollection.AddBlazorState(options => options.Assemblies = new[] { typeof(Program).GetTypeInfo().Assembly, });
-			serviceCollection.AddTransient<IProjectRepository, InMemoryProjectRepository>();
+			serviceCollection.AddSingleton<IProjectRepository, InMemoryProjectRepository>();
 		}
 	}
 }

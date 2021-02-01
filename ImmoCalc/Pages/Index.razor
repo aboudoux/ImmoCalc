@@ -26,10 +26,6 @@
                             <h3><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></h3>
                         </ion-label>
                     </ion-item>
-                    <ion-item-options side="end">
-                        <ion-item-option color="tertiary">Rename</ion-item-option>
-                        <ion-item-option color="danger">Remove</ion-item-option>
-                    </ion-item-options>
                 </ion-item-sliding>
             }
         </ion-list>
@@ -47,8 +43,7 @@
                         </ion-label>
                     </ion-item>
                     <ion-item-options side="end">
-                        <ion-item-option color="tertiary">Rename</ion-item-option>
-                        <ion-item-option color="danger">Remove</ion-item-option>
+                        <ion-item-option color="danger" @onclick="@(()=>Remove(project.Id))">Remove</ion-item-option>
                     </ion-item-options>
                 </ion-item-sliding>
             }
@@ -64,7 +59,7 @@
 
 @code
 {
-    private ProjectListState State => Store.GetState<ProjectListState>();
+    private ProjectListState State => GetState<ProjectListState>();
 
     private async Task ListItemClicked(Guid projectId) {
         Navigation.NavigateTo("simulator");
@@ -73,7 +68,13 @@
 
     private void CreateNewItemClicked()
     {
+        Mediator.Send(new CurrentProjectState.CreateNewProject());
+        Navigation.NavigateTo("simulator");
+    }
 
+    private async Task Remove(Guid projectId)
+{
+        await Mediator.Send(new ProjectListState.RemoveProject(ProjectId.From(projectId)));
     }
 
     protected override void OnInitialized()

@@ -136,7 +136,7 @@
     private void OnIncludedRenovatioChange(bool value) => Mediator.Send(new CurrentProjectState.IncludeRenovationInLoadAmount(value));
 
     protected override void OnInitialized()
-{
+    {
         _buyingPrice = new AmountProperty<BuyingPrice>(Mediator, BuyingPrice.From, ()=> State.Project.BuyingPrice);
         _monthlyRent = new AmountProperty<MonthlyRent>(Mediator, MonthlyRent.From, () => State.Project.MonthlyRent);
         _charges = new AmountProperty<Charges>(Mediator, Charges.From, () => State.Project.Charges);

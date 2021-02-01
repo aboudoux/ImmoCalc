@@ -1,0 +1,94 @@
+﻿@using ImmoCalc.Components.Converters
+@inject IJSRuntime JsRuntime;
+@typeparam TValue
+
+
+<div class="btn-group">
+    <input id="@InputId.ToString()" class="form-control form-control-lg" type="text" @bind-value="InputValue" @bind-value:event="oninput" style="width: 100%; font-weight: bold;" />
+    <label>@Label - @Currency</label>
+
+    @if (!InputValue.IsEmpty()) {
+        <span id="searchclear" @onclick="@Clear" class="glyphicon glyphicon-remove-circle"></span>
+    }
+</div>
+
+@code {
+
+    private Guid _inputId = Guid.Empty;
+    private Guid InputId
+    {
+        get
+        {
+            if (_inputId == Guid.Empty)
+                _inputId = Guid.NewGuid();
+            return _inputId;
+        }
+    }
+
+    [Parameter]
+    public bool ShowCents { get; set; } = true;
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string Currency { get; set; } = "€";
+
+    private string _inputValue = string.Empty;
+
+    private string InputValue
+    {
+        get => _inputValue.EndsWith(Display.DecimalSeparator)
+            ? _inputValue
+            : Converter.Convert(Value) as string;
+        set
+        {
+            if (Display.IsValid(value)) {
+                _inputValue = Display.AsDecimal(value).ToString(ShowCents ? 2 : 0);
+                Value = (TValue) Converter.ConvertBack(value);
+                ValueChanged.InvokeAsync(Value);
+            }
+        }
+    }
+
+    [Parameter]
+    public TValue Value { get; set; }
+
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    [Parameter]
+    public IValueConverter Converter { get; set; }
+
+    private void Clear() {
+        InputValue = string.Empty;
+        JsRuntime.InvokeVoidAsync("focusElement", InputId.ToString());
+    }
+
+}
+
+<style>
+    .btn-group > label {
+        top: -7px;
+        left: 8px;
+        position: absolute;
+        background-color: white;
+        padding: 0px 2px 0px 2px;
+        font-size: 13px;
+        border-radius: 10px;
+        font-weight: normal;
+    }
+
+    #searchclear {
+        position: absolute;
+        right: 5px;
+        top: 0;
+        bottom: 0;
+        height: 16px;
+        margin: auto;
+        font-size: 14px;
+        cursor: pointer;
+        color: #ccc;
+    }
+</style>

@@ -1,6 +1,7 @@
 using System.Threading;
 using FluentAssertions;
 using ImmoCalc.Domain;
+using ImmoCalc.Infrastructures;
 using ImmoCalc.Stores.CurrentProject;
 using ImmoCalc.Tests.Tools;
 using Xunit;
@@ -11,11 +12,11 @@ namespace ImmoCalc.Tests
 	{
 		private readonly CurrentProjectState _state;
 
-		private void ChangeValue<TValue>(TValue action) where TValue : IValue
+		private void ChangeValue<TValue>(TValue action) where TValue : IValueObject
 		{
 			var store = new TestStore();
 			store.AddState(_state);
-			var reducer = new CurrentProjectReducer(store);
+			var reducer = new CurrentProjectReducer(store, new InMemoryProjectRepository());
 			reducer.Handle(new CurrentProjectState.ChangeValue(action), CancellationToken.None);
 		}
 
@@ -30,19 +31,19 @@ namespace ImmoCalc.Tests
 		{
 			ChangeValue(BuyingPrice.From(100000));
 
-			_state.BuyingPrice.Value.Should().Be(100000);
-			_state.NotaryFees.Value.Should().Be(7500);
+			_state.Project.BuyingPrice.Value.Should().Be(100000);
+			_state.Project.NotaryFees.Value.Should().Be(7500);
 		}
 
 		[Fact]
 		public void ChangeSurface()
 		{
-			_state.BuyingPrice = BuyingPrice.From(100000);
+			_state.Project.BuyingPrice = BuyingPrice.From(100000);
 			
 			ChangeValue(Surface.From(25));
 			
-			_state.Surface.Value.Should().Be(25);
-			_state.SquareMeterPrice.Value.Should().Be(4000);
+			_state.Project.Surface.Value.Should().Be(25);
+			_state.Project.SquareMeterPrice.Value.Should().Be(4000);
 		}
 
 

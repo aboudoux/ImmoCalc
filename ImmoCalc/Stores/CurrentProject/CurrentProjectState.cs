@@ -54,5 +54,8 @@ namespace ImmoCalc.Stores.CurrentProject {
 				Project = project;
 			}
 		}
+
+		public class CreateNewProject : IAction {
+		}
 	}
 }

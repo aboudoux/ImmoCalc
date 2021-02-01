@@ -12,7 +12,8 @@ namespace ImmoCalc.Stores.CurrentProject
 		IRequestHandler<CurrentProjectState.IncludeChargesInMonthlyRent>,
 		IRequestHandler<CurrentProjectState.IncludeNotaryFeesInLoadAmount>,
 		IRequestHandler<CurrentProjectState.IncludeRenovationInLoadAmount>,
-		IRequestHandler<CurrentProjectState.Load>
+		IRequestHandler<CurrentProjectState.Load>,
+		IRequestHandler<CurrentProjectState.CreateNewProject>
 	{
 		private readonly IProjectRepository _repository;
 		private CurrentProjectState State => Store.GetState<CurrentProjectState>();
@@ -66,6 +67,12 @@ namespace ImmoCalc.Stores.CurrentProject
 			var project = await _repository.LoadProject(request.ProjectId.Value);
 			State.Project = project;
 			return Unit.Value;
+		}
+
+		public Task<Unit> Handle(CurrentProjectState.CreateNewProject request, CancellationToken cancellationToken)
+		{
+			State.Project = new Project(ProjectId.New);
+			return Unit.Task;
 		}
 	}
 }

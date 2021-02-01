@@ -30,10 +30,6 @@ namespace ImmoCalc.Stores.ProjectList
 		{
 		}
 
-		public class CreateNewProject : IAction
-		{
-		}
-
 		public class RemoveProject : IAction
 		{
 			public ProjectId Id { get; }

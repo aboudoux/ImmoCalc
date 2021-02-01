@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ImmoCalc.Components.Converters
 {
-	public class AmountProperty<T> : EditableProperty<T>
+	public class AmountProperty<T> : EditableProperty<T,double>
 		where T : class, IValue<double> {
 		public AmountConverter<T> Converter { get; }
 
