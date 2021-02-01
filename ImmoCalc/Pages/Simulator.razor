@@ -45,7 +45,7 @@
                         <AmountInput Label="Charges" Currency="€ / mois" @bind-Value="@_charges.Value" Converter="@_charges.Converter"></AmountInput>
                     </div>
                     <label style="font-size: 12px;">Incluses</label>
-                    <ion-toggle />
+                    <ion-toggle @onclick="CheckCharges" checked="@ChargesIncluded" />
                 </div>
                 <div class="form-group">
                     <AmountInput Label="Taxe foncière" Currency="€ / an" @bind-Value="@_propertyTax.Value" Converter="@_propertyTax.Converter"></AmountInput>
@@ -70,18 +70,18 @@
                     <AmountInput Label="Taux d'assurance" Currency="%" @bind-Value="@_insuranceRate.Value" Converter="@_insuranceRate.Converter"></AmountInput>
                 </div>
                 <div class="form-group">
-                    <ion-label>Frais de notaire de <strong>30 525€</strong> inclus</ion-label>
-                    <ion-toggle />
+                    <ion-label>Frais de notaire de <strong>@((string) _amountToStringConverter.Convert(State.Project.NotaryFees)) €</strong> inclus</ion-label>
+                    <ion-toggle @onclick="CheckNotaryFees" checked="@NotaryFeesIncluded" />
                 </div>
                 <div class="form-group">
                     <ion-label>Inclure les travaux</ion-label>
-                    <ion-toggle />
+                    <ion-toggle @onclick="CheckRenovation" checked="@RenovationIncluded" />
                 </div>
                 <div class="form-group">
-                    <ion-label>Montant de l'emprunt : <strong>185 000 €</strong></ion-label>
+                    <ion-label>Montant de l'emprunt : <strong>@((string)_amountToStringConverter.Convert(State.Project.LoanAmount) ) €</strong></ion-label>
                 </div>
                 <div class="form-group">
-                    <ion-label>Apport : <strong>18 500 €</strong></ion-label>
+                    <ion-label>Apport : <strong>@((string) _amountToStringConverter.Convert(State.Project.Contribution)) €</strong></ion-label>
                 </div>
             </ion-content>
         </ion-slide>
@@ -229,4 +229,13 @@
     {
         Mediator.Send(new CurrentProjectState.Save(State.Project));
     }
+
+    private void CheckCharges() => Mediator.Send(new CurrentProjectState.IncludeChargesInMonthlyRent(!State.Project.Charges.IsIncludedInMonthlyRent));
+    private string ChargesIncluded => State.Project.Charges.IsIncludedInMonthlyRent ? "true" : "false";
+
+    private void CheckNotaryFees() => Mediator.Send(new CurrentProjectState.IncludeNotaryFeesInLoadAmount(!State.Project.NotaryFees.IsIncludedInLoadAmount));
+    private string NotaryFeesIncluded => State.Project.NotaryFees.IsIncludedInLoadAmount ? "true" : "false";
+
+    private string RenovationIncluded => State.Project.Renovation.IsIncludedInLoadAmount ? "true" : "false";
+    private void CheckRenovation() => Mediator.Send(new CurrentProjectState.IncludeRenovationInLoadAmount(!State.Project.Renovation.IsIncludedInLoadAmount));
 }
