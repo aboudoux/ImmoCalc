@@ -13,8 +13,9 @@ namespace ImmoCalc.Components.Converters
 			_factory = factory ?? throw new ArgumentNullException(nameof(factory));
 		}
 
-		public object Convert(object value) {
-			return !(value is T amount) || amount.Value == 0
+		public object Convert(object value) 
+		{
+			return !(value is T amount)
 				? string.Empty
 				: Display.AsDecimal((amount.Value * 100).ToString()).ToString(2);
 		}
