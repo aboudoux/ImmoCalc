@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BlazorState;
@@ -9,7 +10,8 @@ using MediatR;
 namespace ImmoCalc.Stores.ProjectList {
 	public class ProjectListReducer : ActionHandler<ProjectListState.LoadProjectList>,
 		IRequestHandler<ProjectListState.LoadingProjectList>,
-		IRequestHandler<CurrentProjectState.Save>
+		IRequestHandler<CurrentProjectState.Save>,
+		IRequestHandler<ProjectListState.RemoveProject>
 	{
 		private readonly IProjectRepository _projectRepository;
 		private readonly IMediator _mediator;
@@ -40,6 +42,15 @@ namespace ImmoCalc.Stores.ProjectList {
 		public async Task<Unit> Handle(CurrentProjectState.Save request, CancellationToken cancellationToken)
 		{
 			await _projectRepository.SaveProject(request.Project);
+			return Unit.Value;
+		}
+
+		public async Task<Unit> Handle(ProjectListState.RemoveProject request, CancellationToken cancellationToken)
+		{
+			await _projectRepository.Remove(request.Id);
+			var remove = State.ProjectList.FirstOrDefault(a => a.Id == request.Id.Value);
+			if (remove != null)
+				State.ProjectList = State.ProjectList.Except(new []{ remove }).ToArray();
 			return Unit.Value;
 		}
 	}

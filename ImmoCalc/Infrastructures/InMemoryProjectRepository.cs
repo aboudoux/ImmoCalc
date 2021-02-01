@@ -14,7 +14,7 @@ namespace ImmoCalc.Infrastructures
 		{
 			return Task.FromResult(
 				_projects.Select(a =>
-						new ProjectLabel(Guid.Empty, a.Name.Value, a.Address.Value))
+						new ProjectLabel(a.ProjectId.Value, a.Name.Value, a.Address.Value))
 					.ToArray());
 		}
 
@@ -26,6 +26,14 @@ namespace ImmoCalc.Infrastructures
 		public Task SaveProject(Project project)
 		{
 			_projects.Add(project);
+			return Task.CompletedTask;
+		}
+
+		public Task Remove(ProjectId id)
+		{
+			var projectToRemove = _projects.FirstOrDefault(a => a.ProjectId.Value == id.Value);
+			if (projectToRemove != null)
+				_projects.Remove(projectToRemove);
 			return Task.CompletedTask;
 		}
 	}

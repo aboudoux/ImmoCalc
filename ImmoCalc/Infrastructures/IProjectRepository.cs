@@ -11,5 +11,7 @@ namespace ImmoCalc.Infrastructures
 		Task<Project> LoadProject(Guid projectId);
 
 		Task SaveProject(Project project);
+
+		Task Remove(ProjectId id);
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using BlazorState;
+using ImmoCalc.Domain;
 using ImmoCalc.Infrastructures;
 
 namespace ImmoCalc.Stores.ProjectList
@@ -35,6 +36,12 @@ namespace ImmoCalc.Stores.ProjectList
 
 		public class RemoveProject : IAction
 		{
+			public ProjectId Id { get; }
+
+			public RemoveProject(ProjectId id)
+			{
+				Id = id;
+			}
 		}
 	}
 }
